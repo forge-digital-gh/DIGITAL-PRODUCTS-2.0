@@ -14,189 +14,337 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             margin: 0;
             background: #050505;
-            color: white;
+            color: #ffffff;
             font-family: Arial, sans-serif;
         }
 
+        /* NAVBAR */
+
         .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 22px 6%;
+
+            padding: 20px 6%;
+
+            background: rgba(5,5,5,0.85);
+            backdrop-filter: blur(15px);
+
             border-bottom: 1px solid rgba(255,255,255,0.08);
         }
 
         .nav-logo {
             font-size: 22px;
             font-weight: 900;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+        }
+
+        .nav-logo span {
+            color: #c8ff35;
         }
 
         .nav-links {
             display: flex;
-            gap: 25px;
+            gap: 30px;
         }
 
         .nav-links a {
             color: #aaa;
             text-decoration: none;
+            transition: 0.2s;
         }
 
         .nav-links a:hover {
-            color: white;
+            color: #c8ff35;
         }
 
+        /* HERO */
+
         .product-page {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: auto;
-            padding: 80px 20px;
+            padding: 90px 25px;
         }
 
         .product-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            gap: 70px;
             align-items: center;
         }
 
+        /* PRODUCT IMAGE */
+
         .product-image {
-            min-height: 500px;
-            border-radius: 25px;
-            background: linear-gradient(135deg, #161616, #090909);
-            border: 1px solid rgba(255,255,255,0.08);
+            min-height: 520px;
+
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 120px;
+
+            border-radius: 30px;
+
+            background:
+                radial-gradient(circle at center,
+                rgba(200,255,53,0.15),
+                transparent 45%),
+                linear-gradient(135deg,#151515,#070707);
+
+            border: 1px solid rgba(255,255,255,0.08);
+
+            font-size: 130px;
+
+            box-shadow:
+                0 0 80px rgba(200,255,53,0.06);
+
+            transition: 0.4s;
         }
 
-        .product-info .tag {
+        .product-image:hover {
+            transform: translateY(-8px);
+            box-shadow:
+                0 0 100px rgba(200,255,53,0.12);
+        }
+
+        /* PRODUCT INFO */
+
+        .tag {
             display: inline-block;
-            background: rgba(200,255,53,0.1);
-            color: #c8ff35;
-            padding: 8px 14px;
+
+            padding: 8px 15px;
+
             border-radius: 30px;
-            font-size: 13px;
-            font-weight: bold;
+
+            background: rgba(200,255,53,0.08);
+
+            color: #c8ff35;
+
+            font-size: 12px;
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
             margin-bottom: 20px;
         }
 
         .product-info h1 {
-            font-size: clamp(40px, 6vw, 70px);
-            line-height: 1;
+            font-size: clamp(42px,6vw,72px);
+
+            line-height: 0.95;
+
             margin: 0 0 25px;
+
+            letter-spacing: -2px;
         }
 
         .description {
-            color: #aaa;
+            color: #999;
+
             font-size: 18px;
+
             line-height: 1.7;
+
+            max-width: 550px;
+
             margin-bottom: 25px;
         }
 
         .price {
-            font-size: 32px;
+            font-size: 34px;
+
             font-weight: 900;
+
             color: #c8ff35;
+
             margin-bottom: 25px;
         }
 
+        /* BUTTON */
+
         .buy-btn {
             width: 100%;
-            border: none;
+
             padding: 18px;
+
+            border: none;
+
             border-radius: 14px;
+
             background: #c8ff35;
+
             color: #050505;
+
             font-size: 17px;
+
             font-weight: 900;
+
             cursor: pointer;
-            transition: 0.25s ease;
+
+            transition: 0.25s;
         }
 
         .buy-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(200,255,53,0.2);
+            transform: translateY(-4px);
+
+            box-shadow:
+                0 15px 40px rgba(200,255,53,0.22);
         }
+
+        /* INCLUDED */
 
         .included {
-            margin-top: 90px;
+            margin-top: 120px;
         }
 
-        .included h2 {
-            font-size: 36px;
-            margin-bottom: 30px;
+        .section-title {
+            font-size: 42px;
+
+            margin-bottom: 35px;
         }
 
         .included-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+
+            grid-template-columns:
+                repeat(3,1fr);
+
             gap: 20px;
         }
 
         .included-card {
-            padding: 25px;
-            border-radius: 18px;
+            padding: 30px;
+
             background: #101010;
-            border: 1px solid rgba(255,255,255,0.08);
+
+            border: 1px solid
+                rgba(255,255,255,0.08);
+
+            border-radius: 20px;
+
+            transition: 0.3s;
+        }
+
+        .included-card:hover {
+            transform: translateY(-6px);
+
+            border-color:
+                rgba(200,255,53,0.25);
+        }
+
+        .included-card .icon {
+            font-size: 30px;
+
+            margin-bottom: 15px;
         }
 
         .included-card h3 {
-            margin-top: 0;
+            margin: 0 0 10px;
         }
 
         .included-card p {
             color: #888;
+
             line-height: 1.6;
+
+            margin: 0;
         }
 
+        /* PREVIEW */
+
         .preview {
-            margin-top: 70px;
-            padding: 30px;
-            border-radius: 20px;
-            background: #101010;
-            border: 1px solid rgba(255,255,255,0.08);
+            margin-top: 100px;
+
+            padding: 35px;
+
+            border-radius: 25px;
+
+            background: #0d0d0d;
+
+            border: 1px solid
+                rgba(255,255,255,0.08);
         }
 
         .preview h2 {
             margin-top: 0;
+
+            font-size: 32px;
         }
 
         .prompt {
             padding: 20px;
+
             margin-top: 15px;
-            border-radius: 12px;
-            background: #080808;
-            color: #bbb;
+
+            border-radius: 14px;
+
+            background: #070707;
+
+            border: 1px solid
+                rgba(255,255,255,0.06);
+
+            color: #aaa;
+
             line-height: 1.6;
         }
 
+        /* FOOTER */
+
         footer {
             text-align: center;
-            padding: 40px 20px;
+
+            padding: 50px 20px;
+
             color: #666;
-            border-top: 1px solid rgba(255,255,255,0.08);
+
+            border-top:
+                1px solid rgba(255,255,255,0.08);
         }
 
+        /* MOBILE */
+
         @media (max-width: 800px) {
+
+            .navbar {
+                padding: 18px 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .product-page {
+                padding: 60px 20px;
+            }
+
             .product-grid {
                 grid-template-columns: 1fr;
-                gap: 30px;
+
+                gap: 40px;
             }
 
             .product-image {
                 min-height: 350px;
+
+                font-size: 90px;
             }
 
             .included-grid {
                 grid-template-columns: 1fr;
             }
 
-            .nav-links {
-                display: none;
+            .section-title {
+                font-size: 34px;
             }
         }
     </style>
@@ -204,42 +352,83 @@
 
 <body>
 
+<!-- NAVIGATION -->
+
 <nav class="navbar">
-    <div class="nav-logo">FORGE DIGITAL</div>
+
+    <div class="nav-logo">
+        FORGE <span>DIGITAL</span>
+    </div>
 
     <div class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="products.html">Products</a>
-        <a href="products.html">Shop</a>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="products.html">
+            Products
+        </a>
+
+        <a href="products.html">
+            Shop
+        </a>
+
     </div>
+
 </nav>
+
+
+<!-- PRODUCT -->
 
 <main class="product-page">
 
     <section class="product-grid">
 
+        <!-- IMAGE -->
+
         <div class="product-image">
+
             🤖
+
         </div>
+
+
+        <!-- INFO -->
 
         <div class="product-info">
 
-            <span class="tag">AI TOOLS</span>
+            <span class="tag">
+                AI TOOLS
+            </span>
 
-            <h1>AI Prompts Digital Products Kit</h1>
+            <h1>
+                AI Prompts
+                Digital Products Kit
+            </h1>
 
             <p class="description">
-                A powerful collection of ready-to-use AI prompts designed
-                to help creators, entrepreneurs, students and businesses
-                get better results from AI.
+
+                A powerful collection of
+                ready-to-use AI prompts
+                designed for creators,
+                entrepreneurs, students
+                and businesses.
+
             </p>
 
             <div class="price">
+
                 $9.99 USD
+
             </div>
 
-            <button class="buy-btn" onclick="buyProduct()">
+            <button
+                class="buy-btn"
+                onclick="buyProduct()">
+
                 Buy Now →
+
             </button>
 
         </div>
@@ -247,58 +436,120 @@
     </section>
 
 
+    <!-- INCLUDED -->
+
     <section class="included">
 
-        <h2>What's Included</h2>
+        <h2 class="section-title">
+            What's Included
+        </h2>
 
         <div class="included-grid">
 
-            <div class="included-card">
-                <h3>🤖 AI Prompts</h3>
-                <p>
-                    Ready-to-use prompts for content creation,
-                    business, marketing and productivity.
-                </p>
-            </div>
 
             <div class="included-card">
-                <h3>📈 Business Prompts</h3>
+
+                <div class="icon">
+                    🤖
+                </div>
+
+                <h3>
+                    AI Prompts
+                </h3>
+
                 <p>
-                    Prompts designed to help generate ideas,
-                    strategies and business content.
+
+                    Ready-to-use prompts
+                    for AI content creation,
+                    productivity and ideas.
+
                 </p>
+
             </div>
 
+
             <div class="included-card">
-                <h3>⚡ Instant Access</h3>
+
+                <div class="icon">
+                    📈
+                </div>
+
+                <h3>
+                    Business Prompts
+                </h3>
+
                 <p>
-                    Get your digital product after completing
+
+                    Prompts designed to
+                    help businesses generate
+                    strategies and content.
+
+                </p>
+
+            </div>
+
+
+            <div class="included-card">
+
+                <div class="icon">
+                    ⚡
+                </div>
+
+                <h3>
+                    Instant Access
+                </h3>
+
+                <p>
+
+                    Receive your digital
+                    product after completing
                     your purchase.
+
                 </p>
+
             </div>
+
 
         </div>
 
     </section>
 
 
+    <!-- PREVIEW -->
+
     <section class="preview">
 
-        <h2>Preview</h2>
+        <h2>
+            Preview
+        </h2>
+
 
         <div class="prompt">
-            "Act as a digital marketing expert and create a
-            30-day content strategy for a small online business."
+
+            "Act as a digital marketing
+            expert and create a 30-day
+            content strategy for a small
+            online business."
+
         </div>
 
-        <div class="prompt">
-            "Act as a professional copywriter and write a
-            high-converting product description for my product."
-        </div>
 
         <div class="prompt">
-            "Generate 20 creative social media content ideas
-            for a growing brand."
+
+            "Act as a professional
+            copywriter and write a
+            high-converting product
+            description."
+
+        </div>
+
+
+        <div class="prompt">
+
+            "Generate 20 creative social
+            media content ideas for a
+            growing brand."
+
         </div>
 
     </section>
@@ -306,10 +557,19 @@
 </main>
 
 
+<!-- FOOTER -->
+
 <footer>
-    <p>© 2026 Forge Digital. All rights reserved.</p>
+
+    <p>
+        © 2026 Forge Digital.
+        All rights reserved.
+    </p>
+
 </footer>
 
+
+<!-- BUY BUTTON -->
 
 <script>
 
