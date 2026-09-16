@@ -1,137 +1,253 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Product | Forge Digital</title>
-
-    <link rel="stylesheet" href="css/style.css">
+    <title>AI Prompts Digital Products Kit | Forge Digital</title>
 
     <style>
-        .product-page {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 80px 20px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .back-link {
-            display: inline-block;
-            margin-bottom: 30px;
-            color: #b979ff;
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #080808;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
             text-decoration: none;
-            font-weight: 600;
         }
 
-        .product-layout {
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            padding: 22px 0;
+            border-bottom: 1px solid #222;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: #7c5cff;
+        }
+
+        .back {
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        .back:hover {
+            color: white;
+        }
+
+        /* PRODUCT */
+
+        .product {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 60px;
+            padding: 80px 0;
             align-items: center;
         }
 
         .product-image {
-            width: 100%;
-            max-height: 500px;
-            object-fit: cover;
+            min-height: 430px;
             border-radius: 24px;
-            background: #111;
-            border: 1px solid rgba(255,255,255,0.08);
+            background:
+                radial-gradient(circle at 30% 20%, #7c5cff 0%, transparent 35%),
+                radial-gradient(circle at 80% 80%, #00d4ff 0%, transparent 35%),
+                #151515;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            box-shadow: 0 20px 70px rgba(124, 92, 255, 0.15);
         }
 
-        .product-category {
+        .product-icon {
+            font-size: 130px;
+            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.4));
+        }
+
+        .category {
             display: inline-block;
-            color: #c8ff35;
-            font-size: 14px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 15px;
+            background: #171222;
+            color: #a990ff;
+            padding: 7px 13px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 18px;
         }
 
-        .product-title {
-            font-size: clamp(38px, 6vw, 64px);
-            line-height: 1;
-            margin: 0 0 20px;
+        h1 {
+            font-size: clamp(38px, 5vw, 62px);
+            line-height: 1.05;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
         }
 
-        .product-description {
+        .description {
             color: #aaa;
-            font-size: 18px;
-            line-height: 1.7;
+            font-size: 17px;
             margin-bottom: 25px;
         }
 
-        .product-price {
-            font-size: 32px;
+        .price {
+            font-size: 38px;
             font-weight: 800;
-            color: #c8ff35;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
+        }
+
+        .price small {
+            font-size: 14px;
+            color: #888;
+            font-weight: normal;
         }
 
         .buy-btn {
-            display: inline-block;
-            padding: 16px 28px;
-            border-radius: 14px;
-            background: #c8ff35;
-            color: #050505;
-            text-decoration: none;
+            display: block;
+            width: 100%;
+            padding: 17px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #7c5cff, #5b3df5);
+            color: white;
+            font-size: 17px;
             font-weight: 800;
-            transition: 0.25s ease;
+            cursor: pointer;
+            transition: 0.25s;
         }
 
         .buy-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(200,255,53,0.2);
+            box-shadow: 0 12px 35px rgba(124, 92, 255, 0.35);
         }
 
-        .included-section {
-            margin-top: 90px;
+        .secure {
+            text-align: center;
+            color: #777;
+            font-size: 12px;
+            margin-top: 12px;
         }
 
-        .included-section h2 {
-            font-size: 36px;
+        /* INCLUDED */
+
+        .included {
+            padding: 70px 0;
+            border-top: 1px solid #222;
+        }
+
+        .section-title {
+            font-size: 32px;
             margin-bottom: 30px;
         }
 
         .included-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            gap: 16px;
         }
 
-        .included-item {
+        .included-card {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 15px;
+            padding: 22px;
+        }
+
+        .included-card strong {
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .included-card p {
+            color: #888;
+            font-size: 14px;
+        }
+
+        /* PREVIEW */
+
+        .preview {
+            padding: 70px 0;
+            border-top: 1px solid #222;
+        }
+
+        .prompt {
             background: #101010;
-            border: 1px solid rgba(255,255,255,0.07);
-            padding: 18px 20px;
-            border-radius: 14px;
-            color: #ddd;
+            border: 1px solid #242424;
+            border-radius: 15px;
+            padding: 22px;
+            margin-bottom: 15px;
+            color: #ccc;
         }
 
-        .included-item::before {
-            content: "✓";
-            color: #c8ff35;
-            font-weight: 900;
-            margin-right: 10px;
+        .prompt-label {
+            color: #7c5cff;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 8px;
         }
 
-        .not-found {
+        /* FOOTER */
+
+        footer {
+            border-top: 1px solid #222;
+            padding: 35px 0;
             text-align: center;
-            padding: 120px 20px;
+            color: #666;
+            font-size: 13px;
         }
 
-        @media (max-width: 800px) {
-            .product-layout {
+        /* MOBILE */
+
+        @media (max-width: 750px) {
+
+            .product {
                 grid-template-columns: 1fr;
                 gap: 35px;
+                padding: 50px 0;
+            }
+
+            .product-image {
+                min-height: 300px;
+            }
+
+            .product-icon {
+                font-size: 90px;
             }
 
             .included-grid {
                 grid-template-columns: 1fr;
             }
 
-            .product-page {
-                padding-top: 50px;
+            h1 {
+                font-size: 42px;
             }
         }
     </style>
@@ -140,466 +256,214 @@
 <body>
 
     <!-- NAVBAR -->
-    <nav class="navbar">
-        <div class="nav-logo">
-            FORGE DIGITAL
-        </div>
 
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="products.html">Products</a>
-            <a href="products.html">Categories</a>
-            <a href="index.html#about">About</a>
-            <a href="products.html" class="nav-cta">Shop Now</a>
+    <nav>
+        <div class="container nav-content">
+
+            <a href="index.html" class="logo">
+                Forge<span>Digital</span>
+            </a>
+
+            <a href="index.html" class="back">
+                ← Back to Store
+            </a>
+
         </div>
     </nav>
 
 
     <!-- PRODUCT -->
-    <main class="product-page">
 
-        <a href="products.html" class="back-link">
-            ← Back to Products
-        </a>
+    <main>
 
-        <div id="productContainer"></div>
+        <section class="product container">
+
+            <div class="product-image">
+                <div class="product-icon">🤖</div>
+            </div>
+
+
+            <div class="product-info">
+
+                <span class="category">
+                    AI TOOLS
+                </span>
+
+                <h1>
+                    AI Prompts<br>
+                    Digital Products Kit
+                </h1>
+
+                <p class="description">
+                    A ready-to-use collection of powerful AI prompts
+                    designed to help creators, entrepreneurs and
+                    digital product sellers work faster and create better.
+                </p>
+
+                <div class="price">
+                    $9.99
+                    <small>one-time payment</small>
+                </div>
+
+                <button class="buy-btn" onclick="buyProduct()">
+                    Buy Now →
+                </button>
+
+                <p class="secure">
+                    🔒 Secure checkout • Instant digital access
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- WHAT'S INCLUDED -->
+
+        <section class="included">
+
+            <div class="container">
+
+                <h2 class="section-title">
+                    What's Included
+                </h2>
+
+                <div class="included-grid">
+
+                    <div class="included-card">
+                        <strong>🤖 AI Content Prompts</strong>
+                        <p>
+                            Prompts for creating social media posts,
+                            captions, ideas and content.
+                        </p>
+                    </div>
+
+                    <div class="included-card">
+                        <strong>💰 Business Prompts</strong>
+                        <p>
+                            AI prompts for business ideas, marketing,
+                            offers and customer research.
+                        </p>
+                    </div>
+
+                    <div class="included-card">
+                        <strong>📱 Social Media Prompts</strong>
+                        <p>
+                            Create engaging content for Instagram,
+                            TikTok, Facebook and other platforms.
+                        </p>
+                    </div>
+
+                    <div class="included-card">
+                        <strong>🚀 Productivity Prompts</strong>
+                        <p>
+                            Save time by using structured prompts
+                            for everyday tasks.
+                        </p>
+                    </div>
+
+                    <div class="included-card">
+                        <strong>🎯 Creator Prompts</strong>
+                        <p>
+                            Generate ideas for digital products,
+                            videos, campaigns and creative projects.
+                        </p>
+                    </div>
+
+                    <div class="included-card">
+                        <strong>⚡ Ready to Use</strong>
+                        <p>
+                            Copy, paste and customize the prompts
+                            for your own needs.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PREVIEW -->
+
+        <section class="preview">
+
+            <div class="container">
+
+                <h2 class="section-title">
+                    Preview
+                </h2>
+
+                <div class="prompt">
+
+                    <div class="prompt-label">
+                        SAMPLE PROMPT #01
+                    </div>
+
+                    "Act as a professional digital marketing
+                    strategist. Create a 7-day content plan for
+                    a small online business targeting Gen Z."
+                    
+                </div>
+
+
+                <div class="prompt">
+
+                    <div class="prompt-label">
+                        SAMPLE PROMPT #02
+                    </div>
+
+                    "Act as an expert copywriter. Write 5 powerful
+                    social media hooks that make people stop
+                    scrolling."
+                    
+                </div>
+
+
+                <div class="prompt">
+
+                    <div class="prompt-label">
+                        SAMPLE PROMPT #03
+                    </div>
+
+                    "Generate 10 digital product ideas that solve
+                    real problems for online creators."
+                    
+                </div>
+
+            </div>
+
+        </section>
 
     </main>
 
 
     <!-- FOOTER -->
+
     <footer>
-        <p>© 2026 Forge Digital. All rights reserved.</p>
+
+        <div class="container">
+
+            © 2026 Forge Digital. All rights reserved.
+
+        </div>
+
     </footer>
 
 
-    <script src="js/products.js"></script>
-
     <script>
-        const params = new URLSearchParams(window.location.search);
-        const productId = params.get("id");
 
-        const productContainer = document.getElementById("productContainer");
+        function buyProduct() {
 
-        /*
-        PRODUCT CONTENT
-        */
+            alert(
+                "Checkout is coming next. We will connect this button to Paystack."
+            );
 
-        const included = {
-
-            "AI Prompts Digital Products Kit": [
-                "AI product idea generation prompts",
-                "Digital product research prompts",
-                "Content creation prompts",
-                "Marketing prompts",
-                "Product improvement workflows",
-                "AI productivity workflows",
-                "Business growth prompts",
-                "Ready-to-use AI prompt templates"
-            ],
-
-            "AI Content Creator Template Pack": [
-                "Content idea generator",
-                "Viral hook generator",
-                "Short-form video prompts",
-                "Storytelling templates",
-                "Caption generator",
-                "Content calendar system",
-                "AI image prompts",
-                "Content repurposing workflow",
-                "Content quality checker"
-            ],
-
-            "AI Business Marketing Prompt Pack": [
-                "Business idea prompts",
-                "Customer research system",
-                "Pain-point discovery prompts",
-                "Competitor research",
-                "Offer creation prompts",
-                "Marketing campaign prompts",
-                "Sales copy prompts",
-                "Customer outreach templates",
-                "Follow-up messages",
-                "Growth strategy prompts"
-            ],
-
-            "AI Resume Career Prompt Kit": [
-                "Resume improvement prompts",
-                "ATS optimization",
-                "Achievement bullet generator",
-                "Cover letter system",
-                "Job application prompts",
-                "Interview preparation",
-                "Mock interview system",
-                "STAR answer builder",
-                "LinkedIn optimization",
-                "Career roadmap"
-            ],
-
-            "AI Small Business Toolkit": [
-                "Business planning prompts",
-                "Customer profile builder",
-                "Offer creation system",
-                "Pricing prompts",
-                "Marketing planner",
-                "Sales prompts",
-                "Customer service templates",
-                "Testimonial system",
-                "Referral strategy",
-                "Business analysis"
-            ],
-
-            "AI Social Media Growth Kit": [
-                "Social media strategy",
-                "Content pillar system",
-                "30-day content ideas",
-                "Viral hook generator",
-                "Reels and TikTok prompts",
-                "Caption system",
-                "Engagement strategies",
-                "Follower growth system",
-                "Hashtag and keyword prompts",
-                "Content batching workflow"
-            ],
-
-            "AI Ecommerce Starter Kit": [
-                "Product research prompts",
-                "Customer research",
-                "Product description generator",
-                "Product title generator",
-                "AI product image prompts",
-                "Product page prompts",
-                "Pricing strategy",
-                "Social media content",
-                "Customer service prompts",
-                "Ecommerce launch checklist"
-            ],
-
-            "AI Productivity Time Management Kit": [
-                "Daily planner",
-                "Weekly planner",
-                "Monthly goal planner",
-                "Eisenhower Matrix",
-                "Time blocking system",
-                "Focus session planner",
-                "Task breakdown system",
-                "Habit builder",
-                "Procrastination system",
-                "Weekly review system"
-            ],
-
-            "AI Personal Branding Kit": [
-                "Personal brand strategy",
-                "Unique value proposition",
-                "Brand positioning",
-                "Bio generator",
-                "Social profile optimization",
-                "Brand story system",
-                "Content pillar builder",
-                "30-day content plan",
-                "Authority-building prompts",
-                "Personal brand growth strategy"
-            ],
-
-            "Ultimate AI Toolkit": [
-                "AI productivity prompts",
-                "Business prompts",
-                "Marketing prompts",
-                "Content prompts",
-                "Social media prompts",
-                "Ecommerce prompts",
-                "Career prompts",
-                "Resume prompts",
-                "Personal branding prompts",
-                "Digital product prompts",
-                "Research prompts",
-                "Sales prompts",
-                "Customer service prompts",
-                "Master AI workflows"
-            ],
-
-            "AI Digital Product Creator System": [
-                "Digital product idea generator",
-                "Problem discovery system",
-                "Product opportunity research",
-                "Market validation workflow",
-                "Competitor analysis",
-                "Product blueprint",
-                "Product module planner",
-                "Templates and checklists",
-                "Product quality control",
-                "Product packaging",
-                "Pricing strategy",
-                "Sales page system",
-                "Launch workflow",
-                "Marketing system",
-                "Customer onboarding",
-                "Product optimization"
-            ],
-
-            "AI Content Machine System": [
-                "Content strategy",
-                "Audience research",
-                "Content pillar framework",
-                "Idea generation engine",
-                "Viral hook system",
-                "Short-form video workflow",
-                "Caption system",
-                "Platform-specific content",
-                "Content repurposing workflow",
-                "30-day content machine",
-                "Analytics and improvement system"
-            ],
-
-            "AI Business Launch System": [
-                "Business idea generation",
-                "Market research",
-                "Customer research",
-                "Ideal customer profile",
-                "Pain-point research",
-                "Competitor analysis",
-                "Offer creation system",
-                "Value proposition",
-                "Pricing system",
-                "Brand positioning",
-                "First 10 customers strategy",
-                "Marketing system",
-                "Sales system",
-                "Outreach workflow",
-                "Launch checklist",
-                "Growth strategy"
-            ],
-
-            "AI Career Accelerator": [
-                "Career direction system",
-                "Skills assessment",
-                "Career roadmap",
-                "Resume optimization",
-                "ATS optimization",
-                "Cover letter system",
-                "Job search strategy",
-                "LinkedIn optimization",
-                "Networking system",
-                "Interview preparation",
-                "STAR answer builder",
-                "Salary negotiation",
-                "Portfolio system",
-                "Career advancement plan"
-            ],
-
-            "AI Small Business Operating System": [
-                "Business foundation",
-                "Customer system",
-                "Offer system",
-                "Pricing system",
-                "Marketing system",
-                "Content workflow",
-                "Sales system",
-                "Outreach system",
-                "Customer service system",
-                "Operations system",
-                "Automation workflows",
-                "Business numbers dashboard",
-                "Competitor analysis",
-                "Growth system",
-                "Business planning",
-                "AI business assistant"
-            ],
-
-            "AI Social Growth System": [
-                "Social media strategy",
-                "Audience research",
-                "Content pillar system",
-                "Profile optimization",
-                "Hook system",
-                "Short-form video workflow",
-                "Caption system",
-                "Platform content system",
-                "Engagement workflow",
-                "Growth experiments",
-                "Analytics system",
-                "Monetization strategy",
-                "30-day growth challenge"
-            ],
-
-            "AI Ecommerce Launch System": [
-                "Ecommerce business foundation",
-                "Customer research",
-                "Product research",
-                "Competitor research",
-                "Brand system",
-                "Offer creation",
-                "Pricing system",
-                "Store planning",
-                "Product page system",
-                "Content plan",
-                "Marketing channels",
-                "Sales funnel",
-                "Customer experience",
-                "Order tracker",
-                "Weekly dashboard",
-                "90-day growth plan",
-                "Launch checklist"
-            ],
-
-            "AI Productivity OS": [
-                "Personal productivity profile",
-                "Brain dump system",
-                "Task organizer",
-                "Priority framework",
-                "Daily planning",
-                "Weekly planning",
-                "Monthly goals",
-                "Project planner",
-                "Time audit",
-                "Focus plan",
-                "Deep work system",
-                "Habit tracker",
-                "Routine builder",
-                "Study planner",
-                "Meeting planner",
-                "Decision maker",
-                "Weekly review",
-                "Productivity scorecard"
-            ],
-
-            "AI Personal Brand Builder": [
-                "Personal brand positioning",
-                "Brand identity system",
-                "Unique value proposition",
-                "Content strategy",
-                "Content pillars",
-                "Profile optimization",
-                "Storytelling system",
-                "Audience growth system",
-                "30-day content challenge",
-                "Personal brand monetization",
-                "Weekly content engine",
-                "Brand quality check"
-            ],
-
-            "Ultimate AI Operating System": [
-                "AI Productivity OS",
-                "AI Business Growth System",
-                "AI Content Machine",
-                "AI Marketing Workflows",
-                "AI Social Growth System",
-                "AI Ecommerce System",
-                "AI Career System",
-                "AI Personal Brand System",
-                "AI Research Workflows",
-                "AI Sales & Customer Service System",
-                "AI Master Workflows"
-            ]
-        };
-
-
-        /*
-        FIND PRODUCT
-        */
-
-        const product = products.find(item => item.id === productId);
-
-
-        /*
-        PRODUCT NOT FOUND
-        */
-
-        if (!product) {
-
-            productContainer.innerHTML = `
-                <div class="not-found">
-                    <h1>Product Not Found</h1>
-                    <p>Sorry, we couldn't find that product.</p>
-
-                    <br>
-
-                    <a href="products.html" class="buy-btn">
-                        Browse Products →
-                    </a>
-                </div>
-            `;
-
-        } else {
-
-            const productItems = included[product.id] || [
-                "AI-powered templates",
-                "Ready-to-use workflows",
-                "Practical AI prompts",
-                "Step-by-step guidance"
-            ];
-
-            const productName = product.name
-                .replaceAll("-", " ");
-
-            productContainer.innerHTML = `
-
-                <div class="product-layout">
-
-                    <div>
-
-                        <img
-                            src="${product.image || 'assets/covers/default.jpg'}"
-                            alt="${productName}"
-                            class="product-image"
-                        >
-
-                    </div>
-
-
-                    <div>
-
-                        <span class="product-category">
-                            ${product.category}
-                        </span>
-
-                        <h1 class="product-title">
-                            ${productName}
-                        </h1>
-
-                        <p class="product-description">
-                            ${product.description}
-                        </p>
-
-                        <div class="product-price">
-                            ${product.price}
-                        </div>
-
-                        <!-- BUY NOW NOW GOES TO CHECKOUT -->
-
-                        <a
-                            href="checkout.html?id=${encodeURIComponent(product.id)}"
-                            class="buy-btn"
-                        >
-                            Buy Now →
-                        </a>
-
-                    </div>
-
-                </div>
-
-
-                <section class="included-section">
-
-                    <h2>
-                        What's Included
-                    </h2>
-
-                    <div class="included-grid">
-
-                        ${productItems.map(item => `
-                            <div class="included-item">
-                                ${item}
-                            </div>
-                        `).join("")}
-
-                    </div>
-
-                </section>
-
-            `;
         }
+
     </script>
 
 </body>
 </html>
+```
