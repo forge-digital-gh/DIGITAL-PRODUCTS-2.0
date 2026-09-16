@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,92 +8,202 @@
     <title>Payment Successful | Forge Digital</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             min-height: 100vh;
+            background: #070707;
+            color: white;
+            font-family: Arial, sans-serif;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #050505;
-            color: white;
-            font-family: Arial, sans-serif;
             padding: 20px;
         }
 
-        .box {
-            max-width: 500px;
+        .container {
             width: 100%;
+            max-width: 550px;
             text-align: center;
-            background: #101010;
-            padding: 40px 25px;
-            border-radius: 20px;
-            border: 1px solid #292929;
         }
 
-        .icon {
-            font-size: 60px;
+        .logo {
+            font-size: 25px;
+            font-weight: 900;
+            margin-bottom: 40px;
+        }
+
+        .logo span {
+            color: #00ff88;
+        }
+
+        .card {
+            background: #101010;
+            border: 1px solid #222;
+            border-radius: 25px;
+            padding: 45px 30px;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #00ff88;
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            font-weight: bold;
+            margin: 0 auto 25px;
         }
 
         h1 {
-            margin-bottom: 10px;
+            font-size: 36px;
+            margin: 10px 0;
         }
 
-        p {
-            color: #aaa;
+        .message {
+            color: #999;
+            line-height: 1.6;
+            margin-bottom: 30px;
         }
 
-        #status {
-            margin: 25px 0;
-            padding: 15px;
-            background: #181818;
-            border-radius: 10px;
-            color: #c8ff35;
+        .details {
+            background: #080808;
+            border: 1px solid #222;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: left;
+            margin-bottom: 25px;
         }
 
-        #downloadButton {
-            display: none;
-            padding: 15px 25px;
-            background: #c8ff35;
-            color: #050505;
+        .detail {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 12px 0;
+            border-bottom: 1px solid #222;
+        }
+
+        .detail:last-child {
+            border-bottom: none;
+        }
+
+        .detail span:first-child {
+            color: #777;
+        }
+
+        .detail span:last-child {
+            color: white;
+            text-align: right;
+            word-break: break-word;
+        }
+
+        .download {
+            display: block;
+            width: 100%;
+            padding: 17px;
+            background: #00ff88;
+            color: #000;
             text-decoration: none;
-            border-radius: 10px;
-            font-weight: bold;
+            border-radius: 12px;
+            font-weight: 900;
+            margin-top: 20px;
         }
 
-        .error {
-            color: #ff5555 !important;
+        .download:hover {
+            box-shadow: 0 10px 30px rgba(0,255,136,.2);
+        }
+
+        .home {
+            display: block;
+            margin-top: 20px;
+            color: #777;
+            text-decoration: none;
+        }
+
+        .home:hover {
+            color: #00ff88;
+        }
+
+        .warning {
+            margin-top: 25px;
+            color: #555;
+            font-size: 12px;
+            line-height: 1.5;
         }
     </style>
 </head>
 
 <body>
 
-<div class="box">
+<div class="container">
 
-    <div class="icon">✓</div>
-
-    <h1>Payment Successful</h1>
-
-    <p>Your payment has been verified.</p>
-
-    <div id="status">
-        Preparing your download...
+    <div class="logo">
+        FORGE<span>DIGITAL</span>
     </div>
 
-    <a id="downloadButton">
-        Download Your Product →
-    </a>
+    <div class="card">
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <h1>Payment Successful!</h1>
+
+        <p class="message">
+            Thank you for your purchase. Your payment has been received.
+        </p>
+
+        <div class="details">
+
+            <div class="detail">
+                <span>Product</span>
+                <span id="productName">Loading...</span>
+            </div>
+
+            <div class="detail">
+                <span>Reference</span>
+                <span id="reference">Loading...</span>
+            </div>
+
+            <div class="detail">
+                <span>Status</span>
+                <span style="color:#00ff88;">
+                    PAID
+                </span>
+            </div>
+
+        </div>
+
+        <a
+            id="downloadButton"
+            href="#"
+            class="download"
+        >
+            Download Product →
+        </a>
+
+        <a href="index.html" class="home">
+            ← Back to Forge Digital
+        </a>
+
+        <p class="warning">
+            Keep your payment reference for your records.
+        </p>
+
+    </div>
 
 </div>
 
 
 <script>
 
-const WORKER_URL =
-    "https://forge-digital-payment-v2.rampagewwe2.workers.dev/";
-
-const params =
-    new URLSearchParams(window.location.search);
+const params = new URLSearchParams(window.location.search);
 
 const reference =
     params.get("reference");
@@ -100,99 +211,72 @@ const reference =
 const productId =
     params.get("product");
 
-const status =
-    document.getElementById("status");
+
+// SHOW REFERENCE
+
+document.getElementById("reference").textContent =
+    reference || "Not available";
+
+
+// PRODUCT DOWNLOADS
+
+const downloads = {
+
+    "AI-Prompts-Digital-Products-Kit":
+        "https://raw.githubusercontent.com/forge-digital-gh/DIGITAL-PRODUCTS-2.0/main/AI%20Prompts%20Digital%20Products%20Kit/AI-Prompts-Digital-Products-Kit.md",
+
+    "AI-Content-Creator-Template-Pack":
+        "https://raw.githubusercontent.com/forge-digital-gh/DIGITAL-PRODUCTS-2.0/main/AI%20Content%20Creator%20Template%20Pack/AI-Content-Creator-Template-Pack.md",
+
+    "AI-Business-Marketing-Prompt-Pack":
+        "https://raw.githubusercontent.com/forge-digital-gh/DIGITAL-PRODUCTS-2.0/main/AI%20Business%20Marketing%20Prompt%20Pack/AI-Business-Marketing-Prompt-Pack.md",
+
+    "AI-Resume-Career-Prompt-Kit":
+        "https://raw.githubusercontent.com/forge-digital-gh/DIGITAL-PRODUCTS-2.0/main/AI%20Resume%20Career%20Prompt%20Kit/AI-Resume-Career-Prompt-Kit.md"
+};
+
+
+// PRODUCT NAMES
+
+const names = {
+
+    "AI-Prompts-Digital-Products-Kit":
+        "AI Prompts Digital Products Kit",
+
+    "AI-Content-Creator-Template-Pack":
+        "AI Content Creator Template Pack",
+
+    "AI-Business-Marketing-Prompt-Pack":
+        "AI Business Marketing Prompt Pack",
+
+    "AI-Resume-Career-Prompt-Kit":
+        "AI Resume Career Prompt Kit"
+};
+
+
+document.getElementById("productName").textContent =
+    names[productId] || "Digital Product";
+
+
+// DOWNLOAD BUTTON
 
 const downloadButton =
     document.getElementById("downloadButton");
 
+if (downloads[productId]) {
 
-async function verifyPayment() {
+    downloadButton.href =
+        downloads[productId];
 
-    if (!reference || !productId) {
+} else {
 
-        status.textContent =
-            "Missing payment information.";
+    downloadButton.style.display =
+        "none";
 
-        status.classList.add("error");
-
-        return;
-    }
-
-    try {
-
-        const response =
-            await fetch(WORKER_URL, {
-
-                method: "POST",
-
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify({
-
-                    reference: reference,
-
-                    product: productId
-
-                })
-
-            });
-
-
-        const result =
-            await response.json();
-
-
-        console.log(result);
-
-
-        if (!result.success) {
-
-            throw new Error(
-                result.error ||
-                "Payment verification failed."
-            );
-        }
-
-
-        // CREATE DOWNLOAD PATH
-        const downloadURL =
-            WORKER_URL +
-            "download?reference=" +
-            encodeURIComponent(reference) +
-            "&product=" +
-            encodeURIComponent(productId);
-
-
-        downloadButton.href =
-            downloadURL;
-
-
-        downloadButton.style.display =
-            "inline-block";
-
-
-        status.textContent =
-            "Your product is ready. Click below to download.";
-
-
-    } catch (error) {
-
-        console.error(error);
-
-        status.textContent =
-            "Could not prepare your download.";
-
-        status.classList.add("error");
-    }
 }
-
-
-verifyPayment();
 
 </script>
 
 </body>
 </html>
+```
