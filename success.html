@@ -1,206 +1,363 @@
 ```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Forge Digital Download Test</title>
+    <title>Payment Successful | Forge Digital</title>
 
     <style>
-
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            margin: 0;
             min-height: 100vh;
-
-            background: #07070b;
-
+            background: #07070a;
             color: white;
-
             font-family: Arial, sans-serif;
-
             display: flex;
             align-items: center;
             justify-content: center;
-
             padding: 20px;
         }
 
         .card {
             width: 100%;
-            max-width: 500px;
-
-            background: #101016;
-
-            border: 1px solid #292936;
-
-            border-radius: 24px;
-
-            padding: 40px 30px;
-
+            max-width: 600px;
+            background: #111116;
+            border: 1px solid #25252d;
+            border-radius: 22px;
+            padding: 40px 25px;
             text-align: center;
-
-            box-shadow:
-                0 30px 80px rgba(0,0,0,.5);
+            box-shadow: 0 20px 70px rgba(0,0,0,0.45);
         }
 
-        .logo {
-            font-size: 25px;
-            font-weight: 900;
-
-            margin-bottom: 30px;
-        }
-
-        .logo span {
-            color: #8b5cf6;
-        }
-
-        .icon {
-            width: 80px;
-            height: 80px;
-
-            margin: 0 auto 25px;
-
+        .check {
+            width: 75px;
+            height: 75px;
             border-radius: 50%;
-
-            background: #8b5cf6;
-
+            margin: 0 auto 25px;
+            background: #15151c;
+            border: 2px solid #00ff9d;
+            color: #00ff9d;
             display: flex;
             align-items: center;
             justify-content: center;
-
-            font-size: 40px;
+            font-size: 38px;
         }
 
         h1 {
-            margin: 10px 0;
-
             font-size: 32px;
+            margin-bottom: 12px;
         }
 
-        p {
-            color: #999;
-
+        .subtitle {
+            color: #a4a4ad;
             line-height: 1.6;
-
             margin-bottom: 30px;
         }
 
-        .product {
-            background: #08080d;
-
-            border: 1px solid #292936;
-
-            border-radius: 14px;
-
-            padding: 18px;
-
+        .info {
+            background: #0b0b0f;
+            border: 1px solid #24242c;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: left;
             margin-bottom: 25px;
+        }
 
-            color: #ddd;
+        .row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 10px 0;
+            border-bottom: 1px solid #202028;
+        }
+
+        .row:last-child {
+            border-bottom: none;
+        }
+
+        .label {
+            color: #888892;
+        }
+
+        .value {
+            color: white;
+            font-weight: bold;
+            text-align: right;
+            word-break: break-word;
+        }
+
+        .status {
+            color: #00ff9d;
         }
 
         .download {
-            display: block;
-
             width: 100%;
-
-            padding: 17px;
-
+            border: none;
             border-radius: 12px;
-
-            background: #8b5cf6;
-
-            color: white;
-
-            text-decoration: none;
-
-            font-weight: 900;
-
+            padding: 16px 20px;
+            background: #00ff9d;
+            color: #050507;
             font-size: 16px;
-
-            transition: .3s;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.2s ease;
         }
 
         .download:hover {
-            background: #a78bfa;
-
             transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,255,157,0.2);
         }
 
-        .note {
+        .download:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .back {
+            display: inline-block;
             margin-top: 20px;
-
-            font-size: 12px;
-
-            color: #555;
+            color: #9999a3;
+            text-decoration: none;
+            font-size: 14px;
         }
 
+        .back:hover {
+            color: white;
+        }
+
+        .message {
+            margin-top: 15px;
+            color: #ff7070;
+            font-size: 14px;
+            display: none;
+        }
+
+        @media (max-width: 500px) {
+            .card {
+                padding: 30px 18px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            .row {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .value {
+                text-align: left;
+            }
+        }
     </style>
-
 </head>
-
 
 <body>
 
-
 <div class="card">
 
-
-    <div class="logo">
-        FORGE<span>DIGITAL</span>
-    </div>
-
-
-    <div class="icon">
+    <div class="check">
         ✓
     </div>
 
+    <h1>Payment Successful!</h1>
 
-    <h1>
-        Download Test
-    </h1>
-
-
-    <p>
-        Testing the Forge Digital
-        product download system.
+    <p class="subtitle">
+        Thank you for your purchase from Forge Digital.
+        Your digital product is ready.
     </p>
 
+    <div class="info">
 
-    <div class="product">
+        <div class="row">
+            <span class="label">Product</span>
+            <span class="value" id="productName">
+                Loading...
+            </span>
+        </div>
 
-        AI Prompts Digital Products Kit
+        <div class="row">
+            <span class="label">Reference</span>
+            <span class="value" id="reference">
+                Loading...
+            </span>
+        </div>
+
+        <div class="row">
+            <span class="label">Payment</span>
+            <span class="value status">
+                Successful
+            </span>
+        </div>
 
     </div>
 
-
-    <a
+    <button
+        id="downloadButton"
         class="download"
-        href="https://raw.githubusercontent.com/forge-digital-gh/DIGITAL-PRODUCTS-2.0/main/AI%20Prompts%20Digital%20Products%20Kit/AI-Prompts-Digital-Products-Kit.md"
-        download="AI-Prompts-Digital-Products-Kit.md"
+        type="button"
     >
         Download Product →
+    </button>
+
+    <div
+        id="message"
+        class="message"
+    ></div>
+
+    <a
+        class="back"
+        href="index.html"
+    >
+        ← Back to Forge Digital
     </a>
-
-
-    <div class="note">
-        Test product download
-    </div>
-
 
 </div>
 
 
-</body>
+<script>
 
+const params =
+    new URLSearchParams(window.location.search);
+
+const reference =
+    params.get("reference");
+
+const productId =
+    params.get("product");
+
+
+const products = {
+
+    "AI-Prompts-Digital-Products-Kit":
+        "AI Prompts Digital Products Kit",
+
+    "AI-Content-Creator-Template-Pack":
+        "AI Content Creator Template Pack",
+
+    "AI-Business-Marketing-Prompt-Pack":
+        "AI Business Marketing Prompt Pack",
+
+    "AI-Resume-Career-Prompt-Kit":
+        "AI Resume Career Prompt Kit",
+
+    "AI-Social-Media-Content-Kit":
+        "AI Social Media Content Kit",
+
+    "AI-YouTube-Creator-Prompt-Pack":
+        "AI YouTube Creator Prompt Pack",
+
+    "AI-Business-Idea-Generator-Kit":
+        "AI Business Idea Generator Kit",
+
+    "AI-Freelancer-Prompt-Kit":
+        "AI Freelancer Prompt Kit",
+
+    "AI-Email-Marketing-Prompt-Pack":
+        "AI Email Marketing Prompt Pack",
+
+    "AI-Copywriting-Prompt-Master-Kit":
+        "AI Copywriting Prompt Master Kit",
+
+    "AI-Website-Creation-Prompt-Kit":
+        "AI Website Creation Prompt Kit",
+
+    "AI-Graphic-Design-Prompt-Pack":
+        "AI Graphic Design Prompt Pack",
+
+    "AI-Productivity-Prompt-Kit":
+        "AI Productivity Prompt Kit",
+
+    "AI-Study-Prompt-Pack":
+        "AI Study Prompt Pack",
+
+    "AI-Ecommerce-Prompt-Kit":
+        "AI Ecommerce Prompt Kit",
+
+    "AI-Small-Business-Prompt-Pack":
+        "AI Small Business Prompt Pack",
+
+    "AI-Instagram-Growth-Prompt-Kit":
+        "AI Instagram Growth Prompt Kit",
+
+    "AI-ChatGPT-Master-Prompt-Pack":
+        "AI ChatGPT Master Prompt Pack",
+
+    "AI-Digital-Product-Creator-Kit":
+        "AI Digital Product Creator Kit",
+
+    "Ultimate-AI-Prompt-Bundle":
+        "Ultimate AI Prompt Bundle"
+};
+
+
+const productName =
+    products[productId] || "Digital Product";
+
+
+document.getElementById("productName")
+    .textContent = productName;
+
+
+document.getElementById("reference")
+    .textContent =
+        reference || "Unavailable";
+
+
+const downloadButton =
+    document.getElementById("downloadButton");
+
+
+const message =
+    document.getElementById("message");
+
+
+downloadButton.addEventListener(
+    "click",
+    function () {
+
+        if (!reference || !productId) {
+
+            message.textContent =
+                "Missing payment information. Please contact Forge Digital.";
+
+            message.style.display =
+                "block";
+
+            return;
+        }
+
+
+        downloadButton.disabled = true;
+
+        downloadButton.textContent =
+            "Preparing Download...";
+
+
+        const workerUrl =
+            "https://forge-store-payment.rampagewwe2.workers.dev/download" +
+            "?reference=" +
+            encodeURIComponent(reference) +
+            "&product=" +
+            encodeURIComponent(productId);
+
+
+        window.location.href =
+            workerUrl;
+    }
+);
+
+</script>
+
+</body>
 </html>
 ```
