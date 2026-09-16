@@ -33,7 +33,7 @@
         .logo {
             font-size: 25px;
             font-weight: 900;
-            margin-bottom: 40px;
+            margin-bottom: 35px;
         }
 
         .logo span {
@@ -47,22 +47,22 @@
             padding: 45px 30px;
         }
 
-        .success-icon {
+        .icon {
             width: 80px;
             height: 80px;
-            border-radius: 50%;
             background: #00ff88;
             color: #000;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 40px;
+            font-size: 42px;
             font-weight: bold;
             margin: 0 auto 25px;
         }
 
         h1 {
-            font-size: 36px;
+            font-size: 35px;
             margin: 10px 0;
         }
 
@@ -72,46 +72,49 @@
             margin-bottom: 30px;
         }
 
-        .details {
+        .info {
             background: #080808;
             border: 1px solid #222;
             border-radius: 15px;
             padding: 20px;
-            text-align: left;
             margin-bottom: 25px;
         }
 
-        .detail {
+        .row {
             display: flex;
             justify-content: space-between;
-            gap: 20px;
+            gap: 15px;
             padding: 12px 0;
             border-bottom: 1px solid #222;
         }
 
-        .detail:last-child {
+        .row:last-child {
             border-bottom: none;
         }
 
-        .detail span:first-child {
+        .label {
             color: #777;
         }
 
-        .detail span:last-child {
-            color: white;
+        .value {
             text-align: right;
             word-break: break-word;
         }
 
+        .paid {
+            color: #00ff88;
+            font-weight: bold;
+        }
+
         .download {
             display: block;
-            width: 100%;
-            padding: 17px;
             background: #00ff88;
             color: #000;
-            text-decoration: none;
+            padding: 17px;
             border-radius: 12px;
+            text-decoration: none;
             font-weight: 900;
+            font-size: 16px;
             margin-top: 20px;
         }
 
@@ -121,20 +124,13 @@
 
         .home {
             display: block;
-            margin-top: 20px;
             color: #777;
             text-decoration: none;
+            margin-top: 20px;
         }
 
         .home:hover {
             color: #00ff88;
-        }
-
-        .warning {
-            margin-top: 25px;
-            color: #555;
-            font-size: 12px;
-            line-height: 1.5;
         }
     </style>
 </head>
@@ -149,52 +145,54 @@
 
     <div class="card">
 
-        <div class="success-icon">
-            ✓
-        </div>
+        <div class="icon">✓</div>
 
         <h1>Payment Successful!</h1>
 
         <p class="message">
-            Thank you for your purchase. Your payment has been received.
+            Your payment was successful.
+            Your digital product is ready.
         </p>
 
-        <div class="details">
+        <div class="info">
 
-            <div class="detail">
-                <span>Product</span>
-                <span id="productName">Loading...</span>
+            <div class="row">
+                <span class="label">Product</span>
+                <span class="value" id="productName">
+                    Loading...
+                </span>
             </div>
 
-            <div class="detail">
-                <span>Reference</span>
-                <span id="reference">Loading...</span>
+            <div class="row">
+                <span class="label">Reference</span>
+                <span class="value" id="reference">
+                    Loading...
+                </span>
             </div>
 
-            <div class="detail">
-                <span>Status</span>
-                <span style="color:#00ff88;">
-                    PAID
+            <div class="row">
+                <span class="label">Status</span>
+                <span class="value paid">
+                    PAID ✓
                 </span>
             </div>
 
         </div>
 
+        <!-- DOWNLOAD -->
+
         <a
             id="downloadButton"
-            href="#"
             class="download"
+            href="#"
+            target="_blank"
         >
-            Download Product →
+            ⬇ Download Your Product
         </a>
 
         <a href="index.html" class="home">
             ← Back to Forge Digital
         </a>
-
-        <p class="warning">
-            Keep your payment reference for your records.
-        </p>
 
     </div>
 
@@ -203,13 +201,14 @@
 
 <script>
 
-const params = new URLSearchParams(window.location.search);
-
-const reference =
-    params.get("reference");
+const params =
+    new URLSearchParams(window.location.search);
 
 const productId =
     params.get("product");
+
+const reference =
+    params.get("reference");
 
 
 // SHOW REFERENCE
@@ -218,60 +217,64 @@ document.getElementById("reference").textContent =
     reference || "Not available";
 
 
-// PRODUCT DOWNLOADS
+// PRODUCT DATA
 
-const downloads = {
+const products = {
 
-    "AI-Prompts-Digital-Products-Kit":
-        "https://raw.githubusercontent.com/forge-digital-gh/DIGITAL-PRODUCTS-2.0/main/AI%20Prompts%20Digital%20Products%20Kit/AI-Prompts-Digital-Products-Kit.md",
+    "AI-Prompts-Digital-Products-Kit": {
+        name: "AI Prompts Digital Products Kit",
 
-    "AI-Content-Creator-Template-Pack":
-        "https://raw.githubusercontent.com/forge-digital-gh/DIGITAL-PRODUCTS-2.0/main/AI%20Content%20Creator%20Template%20Pack/AI-Content-Creator-Template-Pack.md",
+        file:
+        "https://raw.githubusercontent.com/forge-digital-gh/DIGITAL-PRODUCTS-2.0/main/AI%20Prompts%20Digital%20Products%20Kit/AI-Prompts-Digital-Products-Kit.md"
+    },
 
-    "AI-Business-Marketing-Prompt-Pack":
-        "https://raw.githubusercontent.com/forge-digital-gh/DIGITAL-PRODUCTS-2.0/main/AI%20Business%20Marketing%20Prompt%20Pack/AI-Business-Marketing-Prompt-Pack.md",
+    "AI-Content-Creator-Template-Pack": {
+        name: "AI Content Creator Template Pack",
 
-    "AI-Resume-Career-Prompt-Kit":
+        file:
+        "https://raw.githubusercontent.com/forge-digital-gh/DIGITAL-PRODUCTS-2.0/main/AI%20Content%20Creator%20Template%20Pack/AI-Content-Creator-Template-Pack.md"
+    },
+
+    "AI-Business-Marketing-Prompt-Pack": {
+        name: "AI Business Marketing Prompt Pack",
+
+        file:
+        "https://raw.githubusercontent.com/forge-digital-gh/DIGITAL-PRODUCTS-2.0/main/AI%20Business%20Marketing%20Prompt%20Pack/AI-Business-Marketing-Prompt-Pack.md"
+    },
+
+    "AI-Resume-Career-Prompt-Kit": {
+        name: "AI Resume Career Prompt Kit",
+
+        file:
         "https://raw.githubusercontent.com/forge-digital-gh/DIGITAL-PRODUCTS-2.0/main/AI%20Resume%20Career%20Prompt%20Kit/AI-Resume-Career-Prompt-Kit.md"
+    }
+
 };
 
 
-// PRODUCT NAMES
+// FIND PRODUCT
 
-const names = {
-
-    "AI-Prompts-Digital-Products-Kit":
-        "AI Prompts Digital Products Kit",
-
-    "AI-Content-Creator-Template-Pack":
-        "AI Content Creator Template Pack",
-
-    "AI-Business-Marketing-Prompt-Pack":
-        "AI Business Marketing Prompt Pack",
-
-    "AI-Resume-Career-Prompt-Kit":
-        "AI Resume Career Prompt Kit"
-};
+const product =
+    products[productId];
 
 
-document.getElementById("productName").textContent =
-    names[productId] || "Digital Product";
+// DISPLAY PRODUCT
 
+if (product) {
 
-// DOWNLOAD BUTTON
+    document.getElementById("productName").textContent =
+        product.name;
 
-const downloadButton =
-    document.getElementById("downloadButton");
-
-if (downloads[productId]) {
-
-    downloadButton.href =
-        downloads[productId];
+    document.getElementById("downloadButton").href =
+        product.file;
 
 } else {
 
-    downloadButton.style.display =
-        "none";
+    document.getElementById("productName").textContent =
+        "Digital Product";
+
+    document.getElementById("downloadButton").href =
+        "https://github.com/forge-digital-gh/DIGITAL-PRODUCTS-2.0";
 
 }
 
