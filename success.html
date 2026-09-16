@@ -14,23 +14,24 @@
         body {
             margin: 0;
             min-height: 100vh;
-            background: #050505;
-            color: white;
-            font-family: Arial, sans-serif;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
+            background: #050505;
+            color: white;
+            font-family: Arial, sans-serif;
         }
 
-        .box {
+        .success-box {
             width: 100%;
             max-width: 520px;
-            background: #111;
-            border: 1px solid #272727;
-            border-radius: 24px;
             padding: 40px 25px;
             text-align: center;
+            background: #101010;
+            border: 1px solid #252525;
+            border-radius: 22px;
+            box-shadow: 0 0 40px rgba(155, 92, 255, 0.12);
         }
 
         .icon {
@@ -48,199 +49,212 @@
             line-height: 1.6;
         }
 
-        .reference {
-            margin: 20px 0;
-            padding: 14px;
-            background: #080808;
+        .status {
+            margin: 25px 0;
+            padding: 15px;
             border-radius: 12px;
-            color: #888;
-            font-size: 13px;
-            word-break: break-all;
+            background: #181818;
+            color: #c8ff35;
         }
 
-        .download {
+        .download-btn {
             display: none;
             margin-top: 20px;
-            padding: 16px 25px;
+            padding: 15px 25px;
+            border-radius: 12px;
             background: #c8ff35;
             color: #050505;
             text-decoration: none;
-            font-weight: bold;
-            border-radius: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.2s;
         }
 
-        .download:hover {
+        .download-btn:hover {
             transform: translateY(-2px);
         }
 
-        .status {
-            margin-top: 20px;
-            color: #aaa;
-        }
-
         .error {
-            color: #ff5c5c;
+            color: #ff6b6b;
         }
     </style>
 </head>
 
 <body>
 
-<div class="box">
+<div class="success-box">
 
-    <div class="icon">✅</div>
+    <div class="icon">✓</div>
 
     <h1>Payment Successful</h1>
 
     <p>
-        Your payment has been verified successfully.
-        Your digital product is ready.
+        Your payment has been verified.
     </p>
-
-    <div class="reference">
-        Reference: <span id="reference">Checking...</span>
-    </div>
 
     <div id="status" class="status">
         Preparing your download...
     </div>
 
-    <a id="downloadButton" class="download">
-        📥 Download Your Product
+    <a
+        id="downloadButton"
+        class="download-btn"
+        href="#"
+        target="_blank"
+        rel="noopener"
+    >
+        Download Your Product →
     </a>
 
 </div>
 
+
 <script>
 
-    // YOUR CLOUDFLARE WORKER
+    // CLOUDFLARE WORKER
     const WORKER_URL =
-        "https://forge-digital-payment.rampagewwe2.workers.dev/";
+        "https://forge-digital-payment-v2.rampagewwe2.workers.dev/";
 
-    const params = new URLSearchParams(window.location.search);
 
-    const reference = params.get("reference");
-    const productId = params.get("product");
+    // Get information from the URL
+    const params =
+        new URLSearchParams(window.location.search);
 
-    const referenceElement =
-        document.getElementById("reference");
 
-    const statusElement =
+    const reference =
+        params.get("reference");
+
+
+    const productId =
+        params.get("product");
+
+
+    // Page elements
+    const statusBox =
         document.getElementById("status");
+
 
     const downloadButton =
         document.getElementById("downloadButton");
 
 
-    referenceElement.textContent =
-        reference || "Unknown";
-
-
     async function verifyPayment() {
 
+        // Make sure payment information exists
         if (!reference || !productId) {
 
-            statusElement.textContent =
+            statusBox.textContent =
                 "Missing payment information.";
 
-            statusElement.classList.add("error");
+            statusBox.classList.add("error");
 
             return;
         }
 
+
         try {
 
-            const response = await fetch(WORKER_URL, {
+            // Send payment reference to Cloudflare Worker
+            const response =
+                await fetch(WORKER_URL, {
 
-                method: "POST",
+                    method: "POST",
 
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
 
-                body: JSON.stringify({
+                    body: JSON.stringify({
 
-                    reference: reference,
+                        reference: reference,
 
-                    product: productId
+                        product: productId
 
-                })
+                    })
 
-            });
-
-
-            const result = await response.json();
-
-            console.log("Worker response:", result);
+                });
 
 
-            if (!response.ok || !result.success) {
+            // Read Worker response
+            const result =
+                await response.json();
+
+
+            console.log(
+                "FULL WORKER RESPONSE:",
+                result
+            );
+
+
+            // Check verification result
+            if (!result.success) {
 
                 throw new Error(
-                    result.error || "Payment verification failed."
+                    result.error ||
+                    "Payment verification failed."
                 );
-
             }
 
 
-            /*
-             * Worker returns something like:
-             *
-             * file:
-             * AI-Prompts-Digital-Products-Kit.md
-             */
+            // Make sure Worker returned a download URL
+            if (
+                !result.product ||
+                !result.product.downloadUrl
+            ) {
 
-            const fileName = result.product.file;
+                throw new Error(
+                    "Download link was not returned."
+                );
+            }
 
 
-            /*
-             * The .md files are inside the main project,
-             * so create a URL relative to success.html.
-             */
-
+            // Get the REAL GitHub file URL
             const downloadURL =
-                "./" + fileName;
+                result.product.downloadUrl;
 
 
-            downloadButton.href = downloadURL;
-
-            downloadButton.download = fileName;
-
-            downloadButton.style.display = "inline-block";
+            const fileName =
+                result.product.file;
 
 
-            statusElement.textContent =
-                "Your product is ready to download.";
-
-            statusElement.style.color =
-                "#c8ff35";
+            // Set download link
+            downloadButton.href =
+                downloadURL;
 
 
-            /*
-             * Automatically start download.
-             */
+            // Tell browser the filename
+            downloadButton.download =
+                fileName;
 
-            setTimeout(() => {
 
-                downloadButton.click();
+            // Show button
+            downloadButton.style.display =
+                "inline-block";
 
-            }, 800);
+
+            // Update status
+            statusBox.textContent =
+                "Your product is ready. Click the button below to access it.";
 
 
         } catch (error) {
 
-            console.error(error);
+            console.error(
+                "DOWNLOAD ERROR:",
+                error
+            );
 
-            statusElement.textContent =
-                error.message || "Something went wrong.";
 
-            statusElement.classList.add("error");
+            statusBox.textContent =
+                "Could not prepare your download. Please try again.";
 
+
+            statusBox.classList.add("error");
         }
-
     }
 
 
+    // Start verification
     verifyPayment();
 
 </script>
