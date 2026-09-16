@@ -7,102 +7,79 @@
     <title>Payment Successful | Forge Digital</title>
 
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
         body {
             margin: 0;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
             background: #050505;
             color: white;
             font-family: Arial, sans-serif;
+            padding: 20px;
         }
 
-        .success-box {
+        .box {
+            max-width: 500px;
             width: 100%;
-            max-width: 520px;
-            padding: 40px 25px;
             text-align: center;
             background: #101010;
-            border: 1px solid #252525;
-            border-radius: 22px;
-            box-shadow: 0 0 40px rgba(155, 92, 255, 0.12);
+            padding: 40px 25px;
+            border-radius: 20px;
+            border: 1px solid #292929;
         }
 
         .icon {
-            font-size: 55px;
-            margin-bottom: 15px;
+            font-size: 60px;
         }
 
         h1 {
-            margin: 0 0 12px;
-            font-size: 30px;
+            margin-bottom: 10px;
         }
 
         p {
             color: #aaa;
-            line-height: 1.6;
         }
 
-        .status {
+        #status {
             margin: 25px 0;
             padding: 15px;
-            border-radius: 12px;
             background: #181818;
+            border-radius: 10px;
             color: #c8ff35;
         }
 
-        .download-btn {
+        #downloadButton {
             display: none;
-            margin-top: 20px;
             padding: 15px 25px;
-            border-radius: 12px;
             background: #c8ff35;
             color: #050505;
             text-decoration: none;
-            font-weight: 800;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .download-btn:hover {
-            transform: translateY(-2px);
+            border-radius: 10px;
+            font-weight: bold;
         }
 
         .error {
-            color: #ff6b6b;
+            color: #ff5555 !important;
         }
     </style>
 </head>
 
 <body>
 
-<div class="success-box">
+<div class="box">
 
     <div class="icon">✓</div>
 
     <h1>Payment Successful</h1>
 
-    <p>
-        Your payment has been verified.
-    </p>
+    <p>Your payment has been verified.</p>
 
-    <div id="status" class="status">
+    <div id="status">
         Preparing your download...
     </div>
 
-    <a
-        id="downloadButton"
-        class="download-btn"
-        href="#"
-        target="_blank"
-        rel="noopener"
-    >
+    <a id="downloadButton">
         Download Your Product →
     </a>
 
@@ -111,151 +88,109 @@
 
 <script>
 
-    // CLOUDFLARE WORKER
-    const WORKER_URL =
-        "https://forge-digital-payment-v2.rampagewwe2.workers.dev/";
+const WORKER_URL =
+    "https://forge-digital-payment-v2.rampagewwe2.workers.dev/";
+
+const params =
+    new URLSearchParams(window.location.search);
+
+const reference =
+    params.get("reference");
+
+const productId =
+    params.get("product");
+
+const status =
+    document.getElementById("status");
+
+const downloadButton =
+    document.getElementById("downloadButton");
 
 
-    // Get information from the URL
-    const params =
-        new URLSearchParams(window.location.search);
+async function verifyPayment() {
 
+    if (!reference || !productId) {
 
-    const reference =
-        params.get("reference");
+        status.textContent =
+            "Missing payment information.";
 
+        status.classList.add("error");
 
-    const productId =
-        params.get("product");
-
-
-    // Page elements
-    const statusBox =
-        document.getElementById("status");
-
-
-    const downloadButton =
-        document.getElementById("downloadButton");
-
-
-    async function verifyPayment() {
-
-        // Make sure payment information exists
-        if (!reference || !productId) {
-
-            statusBox.textContent =
-                "Missing payment information.";
-
-            statusBox.classList.add("error");
-
-            return;
-        }
-
-
-        try {
-
-            // Send payment reference to Cloudflare Worker
-            const response =
-                await fetch(WORKER_URL, {
-
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-
-                    body: JSON.stringify({
-
-                        reference: reference,
-
-                        product: productId
-
-                    })
-
-                });
-
-
-            // Read Worker response
-            const result =
-                await response.json();
-
-
-            console.log(
-                "FULL WORKER RESPONSE:",
-                result
-            );
-
-
-            // Check verification result
-            if (!result.success) {
-
-                throw new Error(
-                    result.error ||
-                    "Payment verification failed."
-                );
-            }
-
-
-            // Make sure Worker returned a download URL
-            if (
-                !result.product ||
-                !result.product.downloadUrl
-            ) {
-
-                throw new Error(
-                    "Download link was not returned."
-                );
-            }
-
-
-            // Get the REAL GitHub file URL
-            const downloadURL =
-                result.product.downloadUrl;
-
-
-            const fileName =
-                result.product.file;
-
-
-            // Set download link
-            downloadButton.href =
-                downloadURL;
-
-
-            // Tell browser the filename
-            downloadButton.download =
-                fileName;
-
-
-            // Show button
-            downloadButton.style.display =
-                "inline-block";
-
-
-            // Update status
-            statusBox.textContent =
-                "Your product is ready. Click the button below to access it.";
-
-
-        } catch (error) {
-
-            console.error(
-                "DOWNLOAD ERROR:",
-                error
-            );
-
-
-            statusBox.textContent =
-                "Could not prepare your download. Please try again.";
-
-
-            statusBox.classList.add("error");
-        }
+        return;
     }
 
+    try {
 
-    // Start verification
-    verifyPayment();
+        const response =
+            await fetch(WORKER_URL, {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    reference: reference,
+
+                    product: productId
+
+                })
+
+            });
+
+
+        const result =
+            await response.json();
+
+
+        console.log(result);
+
+
+        if (!result.success) {
+
+            throw new Error(
+                result.error ||
+                "Payment verification failed."
+            );
+        }
+
+
+        // CREATE DOWNLOAD PATH
+        const downloadURL =
+            WORKER_URL +
+            "download?reference=" +
+            encodeURIComponent(reference) +
+            "&product=" +
+            encodeURIComponent(productId);
+
+
+        downloadButton.href =
+            downloadURL;
+
+
+        downloadButton.style.display =
+            "inline-block";
+
+
+        status.textContent =
+            "Your product is ready. Click below to download.";
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        status.textContent =
+            "Could not prepare your download.";
+
+        status.classList.add("error");
+    }
+}
+
+
+verifyPayment();
 
 </script>
 
