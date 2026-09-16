@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Payment Successful | Forge Digital</title>
 
     <style>
@@ -19,8 +18,8 @@
             color: white;
             font-family: Arial, sans-serif;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             padding: 20px;
         }
 
@@ -69,7 +68,6 @@
         .message {
             color: #999;
             line-height: 1.6;
-            margin-bottom: 30px;
         }
 
         .info {
@@ -77,14 +75,14 @@
             border: 1px solid #222;
             border-radius: 15px;
             padding: 20px;
-            margin-bottom: 25px;
+            margin: 30px 0 25px;
         }
 
         .row {
             display: flex;
             justify-content: space-between;
             gap: 15px;
-            padding: 12px 0;
+            padding: 13px 0;
             border-bottom: 1px solid #222;
         }
 
@@ -108,14 +106,14 @@
 
         .download {
             display: block;
+            width: 100%;
+            padding: 17px;
             background: #00ff88;
             color: #000;
-            padding: 17px;
-            border-radius: 12px;
             text-decoration: none;
+            border-radius: 12px;
             font-weight: 900;
             font-size: 16px;
-            margin-top: 20px;
         }
 
         .download:hover {
@@ -124,9 +122,9 @@
 
         .home {
             display: block;
+            margin-top: 20px;
             color: #777;
             text-decoration: none;
-            margin-top: 20px;
         }
 
         .home:hover {
@@ -150,7 +148,7 @@
         <h1>Payment Successful!</h1>
 
         <p class="message">
-            Your payment was successful.
+            Thank you for your purchase.
             Your digital product is ready.
         </p>
 
@@ -158,16 +156,12 @@
 
             <div class="row">
                 <span class="label">Product</span>
-                <span class="value" id="productName">
-                    Loading...
-                </span>
+                <span class="value" id="productName"></span>
             </div>
 
             <div class="row">
                 <span class="label">Reference</span>
-                <span class="value" id="reference">
-                    Loading...
-                </span>
+                <span class="value" id="reference"></span>
             </div>
 
             <div class="row">
@@ -178,8 +172,6 @@
             </div>
 
         </div>
-
-        <!-- DOWNLOAD -->
 
         <a
             id="downloadButton"
@@ -201,52 +193,39 @@
 
 <script>
 
-const params =
-    new URLSearchParams(window.location.search);
+const params = new URLSearchParams(window.location.search);
 
-const productId =
-    params.get("product");
+const productId = params.get("product");
 
-const reference =
-    params.get("reference");
+const reference = params.get("reference");
 
 
-// SHOW REFERENCE
+// PRODUCT INFORMATION
 
-document.getElementById("reference").textContent =
-    reference || "Not available";
-
-
-// PRODUCT DATA
-
-const products = {
+const productData = {
 
     "AI-Prompts-Digital-Products-Kit": {
         name: "AI Prompts Digital Products Kit",
 
-        file:
-        "https://raw.githubusercontent.com/forge-digital-gh/DIGITAL-PRODUCTS-2.0/main/AI%20Prompts%20Digital%20Products%20Kit/AI-Prompts-Digital-Products-Kit.md"
+        file: "https://raw.githubusercontent.com/forge-digital-gh/DIGITAL-PRODUCTS-2.0/main/AI%20Prompts%20Digital%20Products%20Kit/AI-Prompts-Digital-Products-Kit.md"
     },
 
     "AI-Content-Creator-Template-Pack": {
         name: "AI Content Creator Template Pack",
 
-        file:
-        "https://raw.githubusercontent.com/forge-digital-gh/DIGITAL-PRODUCTS-2.0/main/AI%20Content%20Creator%20Template%20Pack/AI-Content-Creator-Template-Pack.md"
+        file: "https://raw.githubusercontent.com/forge-digital-gh/DIGITAL-PRODUCTS-2.0/main/AI%20Content%20Creator%20Template%20Pack/AI-Content-Creator-Template-Pack.md"
     },
 
     "AI-Business-Marketing-Prompt-Pack": {
         name: "AI Business Marketing Prompt Pack",
 
-        file:
-        "https://raw.githubusercontent.com/forge-digital-gh/DIGITAL-PRODUCTS-2.0/main/AI%20Business%20Marketing%20Prompt%20Pack/AI-Business-Marketing-Prompt-Pack.md"
+        file: "https://raw.githubusercontent.com/forge-digital-gh/DIGITAL-PRODUCTS-2.0/main/AI%20Business%20Marketing%20Prompt%20Pack/AI-Business-Marketing-Prompt-Pack.md"
     },
 
     "AI-Resume-Career-Prompt-Kit": {
         name: "AI Resume Career Prompt Kit",
 
-        file:
-        "https://raw.githubusercontent.com/forge-digital-gh/DIGITAL-PRODUCTS-2.0/main/AI%20Resume%20Career%20Prompt%20Kit/AI-Resume-Career-Prompt-Kit.md"
+        file: "https://raw.githubusercontent.com/forge-digital-gh/DIGITAL-PRODUCTS-2.0/main/AI%20Resume%20Career%20Prompt%20Kit/AI-Resume-Career-Prompt-Kit.md"
     }
 
 };
@@ -254,27 +233,29 @@ const products = {
 
 // FIND PRODUCT
 
-const product =
-    products[productId];
+const product = productData[productId];
 
 
-// DISPLAY PRODUCT
+// DISPLAY
+
+document.getElementById("productName").textContent =
+    product ? product.name : "Digital Product";
+
+document.getElementById("reference").textContent =
+    reference || "Test Payment";
+
+
+// DOWNLOAD
 
 if (product) {
-
-    document.getElementById("productName").textContent =
-        product.name;
 
     document.getElementById("downloadButton").href =
         product.file;
 
 } else {
 
-    document.getElementById("productName").textContent =
-        "Digital Product";
-
-    document.getElementById("downloadButton").href =
-        "https://github.com/forge-digital-gh/DIGITAL-PRODUCTS-2.0";
+    document.getElementById("downloadButton").style.display =
+        "none";
 
 }
 
