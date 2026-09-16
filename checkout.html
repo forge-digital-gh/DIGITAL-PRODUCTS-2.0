@@ -1,59 +1,86 @@
 ```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Checkout | Forge Digital</title>
 
-    <link
-        rel="stylesheet"
-        href="css/style.css"
-    >
+    <link rel="stylesheet" href="css/style.css">
 
-    <!-- Paystack -->
+    <!-- PAYSTACK -->
     <script src="https://js.paystack.co/v2/inline.js"></script>
 
-
     <style>
-
-        .checkout-page {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 80px 20px;
+        * {
+            box-sizing: border-box;
         }
 
+        body {
+            margin: 0;
+            background: #050505;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 22px 6%;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .nav-logo {
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        .nav-logo span {
+            color: #c8ff35;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: #aaa;
+            text-decoration: none;
+        }
+
+        .nav-links a:hover {
+            color: #c8ff35;
+        }
+
+        .checkout-page {
+            max-width: 1050px;
+            margin: auto;
+            padding: 80px 20px;
+        }
 
         .checkout-title {
             text-align: center;
             margin-bottom: 50px;
         }
 
-
         .checkout-title h1 {
-            font-size: clamp(40px, 6vw, 64px);
+            font-size: clamp(42px, 6vw, 65px);
             margin-bottom: 12px;
         }
 
-
         .checkout-title p {
-            color: #999;
+            color: #888;
         }
-
 
         .checkout-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 40px;
+            gap: 30px;
         }
-
 
         .checkout-card {
             background: #101010;
@@ -62,16 +89,14 @@
             padding: 30px;
         }
 
-
         .checkout-card h2 {
+            margin-top: 0;
             margin-bottom: 25px;
         }
-
 
         .field {
             margin-bottom: 20px;
         }
-
 
         .field label {
             display: block;
@@ -79,24 +104,20 @@
             font-weight: 700;
         }
 
-
         .field input {
             width: 100%;
-            box-sizing: border-box;
             padding: 15px;
             border-radius: 12px;
             border: 1px solid rgba(255,255,255,0.1);
-            background: #080808;
+            background: #070707;
             color: white;
             font-size: 16px;
             outline: none;
         }
 
-
         .field input:focus {
-            border-color: #b979ff;
+            border-color: #c8ff35;
         }
-
 
         .product-summary {
             display: flex;
@@ -105,33 +126,28 @@
             margin-bottom: 25px;
         }
 
-
         .product-summary img {
-            width: 100px;
-            height: 100px;
+            width: 95px;
+            height: 95px;
             object-fit: cover;
             border-radius: 15px;
+            background: #181818;
         }
-
 
         .product-summary h3 {
             margin: 0 0 8px;
         }
 
-
         .usd-price {
-            margin: 0;
             color: #c8ff35;
             font-weight: 800;
+            margin: 0;
         }
-
 
         .ghs-price {
-            margin-top: 5px;
-            color: #999;
-            font-size: 14px;
+            color: #888;
+            margin-top: 6px;
         }
-
 
         .total-row {
             display: flex;
@@ -140,9 +156,8 @@
             padding-top: 20px;
             margin-top: 20px;
             font-size: 22px;
-            font-weight: 800;
+            font-weight: 900;
         }
-
 
         .pay-btn {
             width: 100%;
@@ -155,23 +170,18 @@
             font-size: 17px;
             font-weight: 900;
             cursor: pointer;
-            transition: 0.25s ease;
+            transition: 0.25s;
         }
-
 
         .pay-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(200,255,53,0.2);
+            box-shadow: 0 12px 35px rgba(200,255,53,0.2);
         }
-
 
         .pay-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
         }
-
 
         .secure-note {
             text-align: center;
@@ -180,21 +190,25 @@
             margin-top: 15px;
         }
 
-
         .error-message {
+            display: none;
             color: #ff6b6b;
             margin-top: 15px;
-            display: none;
         }
-
 
         .rate-note {
-            color: #777;
+            text-align: center;
+            color: #666;
             font-size: 12px;
             margin-top: 20px;
-            text-align: center;
         }
 
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
 
         @media (max-width: 800px) {
 
@@ -202,726 +216,495 @@
                 grid-template-columns: 1fr;
             }
 
+            .nav-links {
+                display: none;
+            }
+
             .checkout-page {
                 padding-top: 50px;
             }
-
         }
-
     </style>
-
 </head>
-
 
 <body>
 
+<nav class="navbar">
 
-    <!-- NAVBAR -->
+    <div class="nav-logo">
+        FORGE <span>DIGITAL</span>
+    </div>
 
-    <nav class="navbar">
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+    </div>
 
-        <div class="nav-logo">
-            FORGE DIGITAL
-        </div>
-
-
-        <div class="nav-links">
-
-            <a href="index.html">
-                Home
-            </a>
-
-            <a href="products.html">
-                Products
-            </a>
-
-            <a href="products.html">
-                Shop
-            </a>
-
-        </div>
-
-    </nav>
+</nav>
 
 
+<main class="checkout-page">
 
-    <!-- CHECKOUT -->
+    <div class="checkout-title">
 
-    <main class="checkout-page">
+        <h1>Checkout</h1>
+
+        <p>
+            Complete your purchase securely with Paystack.
+        </p>
+
+    </div>
 
 
-        <div class="checkout-title">
+    <div class="checkout-layout">
 
-            <h1>
-                Checkout
-            </h1>
 
-            <p>
-                Complete your purchase and get your digital product.
+        <!-- CUSTOMER -->
+
+        <div class="checkout-card">
+
+            <h2>Your Information</h2>
+
+            <div class="field">
+
+                <label for="customerName">
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="customerName"
+                    placeholder="Enter your full name"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="customerEmail">
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="customerEmail"
+                    placeholder="you@example.com"
+                >
+
+            </div>
+
+
+            <p
+                id="errorMessage"
+                class="error-message">
             </p>
 
         </div>
 
 
+        <!-- ORDER -->
 
-        <div class="checkout-layout">
+        <div class="checkout-card">
 
+            <h2>Your Order</h2>
 
-            <!-- CUSTOMER INFORMATION -->
+            <div
+                id="orderSummary"
+                class="product-summary">
 
-            <div class="checkout-card">
-
-                <h2>
-                    Your Information
-                </h2>
-
-
-                <div class="field">
-
-                    <label for="customerName">
-                        Full Name
-                    </label>
-
-                    <input
-                        type="text"
-                        id="customerName"
-                        placeholder="Enter your full name"
-                        autocomplete="name"
-                    >
-
-                </div>
-
-
-
-                <div class="field">
-
-                    <label for="customerEmail">
-                        Email Address
-                    </label>
-
-                    <input
-                        type="email"
-                        id="customerEmail"
-                        placeholder="you@example.com"
-                        autocomplete="email"
-                    >
-
-                </div>
-
-
-                <p
-                    id="errorMessage"
-                    class="error-message"
-                ></p>
+                Loading product...
 
             </div>
 
 
+            <div class="total-row">
 
-            <!-- ORDER SUMMARY -->
+                <span>Total</span>
 
-            <div class="checkout-card">
+                <span id="totalPrice">
+                    --
+                </span>
 
-                <h2>
-                    Your Order
-                </h2>
-
-
-                <div
-                    id="orderSummary"
-                    class="product-summary"
-                >
-
-                    Loading product...
-
-                </div>
+            </div>
 
 
-                <div class="total-row">
+            <button
+                id="payButton"
+                class="pay-btn">
 
-                    <span>
-                        Total
-                    </span>
+                Pay Now →
 
-                    <span id="totalPrice">
-                        --
-                    </span>
-
-                </div>
+            </button>
 
 
-                <button
-                    id="payButton"
-                    class="pay-btn"
-                    type="button"
-                >
-                    Pay Now →
-                </button>
+            <div class="secure-note">
+
+                🔒 Secure payment powered by Paystack
+
+            </div>
 
 
-                <div class="secure-note">
+            <div class="rate-note">
 
-                    🔒 Secure payment powered by Paystack
-
-                </div>
-
-
-                <div class="rate-note">
-
-                    Prices are displayed in USD and converted
-                    to Ghana Cedis for Paystack checkout.
-
-                </div>
+                USD prices are converted to Ghana Cedis
+                for Paystack checkout.
 
             </div>
 
         </div>
 
-    </main>
+    </div>
+
+</main>
 
 
+<footer>
 
-    <!-- FOOTER -->
+    <p>
+        © 2026 Forge Digital. All rights reserved.
+    </p>
 
-    <footer>
-
-        <p>
-            © 2026 Forge Digital. All rights reserved.
-        </p>
-
-    </footer>
+</footer>
 
 
+<!-- PRODUCTS -->
 
-    <!-- PRODUCTS -->
-
-    <script src="js/products.js"></script>
-
+<script src="js/products.js"></script>
 
 
-    <script>
+<script>
 
-        /*
-        ==================================================
-        PAYSTACK PUBLIC KEY
-        ==================================================
-        */
+    /* =========================
+       PAYSTACK SETTINGS
+    ========================= */
 
-        const PAYSTACK_PUBLIC_KEY =
-            "pk_test_b01341fb1973365e11aa334d70136ab0ede380cb";
+    const PAYSTACK_PUBLIC_KEY =
+        "pk_test_b01341fb1973365e11aa334d70136ab0ede380cb";
 
 
+    /* =========================
+       EXCHANGE RATE
+       $1 = GH₵11.50
+    ========================= */
 
-        /*
-        ==================================================
-        EXCHANGE RATE
-        ==================================================
-
-        1 USD = GH₵11.50
-
-        Example:
-
-        $9.99 × 11.50
-        = GH₵114.885
-
-        Rounded:
-        GH₵115
-        */
-
-        const USD_TO_GHS =
-            11.50;
+    const USD_TO_GHS = 11.50;
 
 
+    /* =========================
+       GET PRODUCT
+    ========================= */
 
-        /*
-        ==================================================
-        GET PRODUCT ID
-        ==================================================
-        */
+    const params =
+        new URLSearchParams(window.location.search);
 
-        const params =
-            new URLSearchParams(
-                window.location.search
-            );
+    const productId =
+        params.get("id");
 
 
-        const productId =
-            params.get("id");
+    const product =
+        products.find(
+            item => item.id === productId
+        );
 
 
+    const orderSummary =
+        document.getElementById("orderSummary");
 
-        /*
-        ==================================================
-        FIND PRODUCT
-        ==================================================
-        */
+    const totalPrice =
+        document.getElementById("totalPrice");
 
-        const product =
-            products.find(
-                item =>
-                    item.id === productId
-            );
+    const payButton =
+        document.getElementById("payButton");
 
+    const errorMessage =
+        document.getElementById("errorMessage");
 
 
-        /*
-        ==================================================
-        ELEMENTS
-        ==================================================
-        */
+    /* =========================
+       USD → GHS
+    ========================= */
 
-        const orderSummary =
-            document.getElementById(
-                "orderSummary"
-            );
+    function convertToGHS(usdPrice) {
 
+        return Number(usdPrice) * USD_TO_GHS;
 
-        const totalPrice =
-            document.getElementById(
-                "totalPrice"
-            );
+    }
 
 
-        const payButton =
-            document.getElementById(
-                "payButton"
-            );
+    /* =========================
+       SHOW PRODUCT
+    ========================= */
+
+    if (!product) {
+
+        orderSummary.innerHTML =
+            "<p>Product not found.</p>";
+
+        totalPrice.textContent =
+            "--";
+
+        payButton.disabled = true;
+
+    } else {
+
+        const usdPrice =
+            Number(product.price);
+
+        const ghsPrice =
+            convertToGHS(usdPrice);
+
+        const roundedGHS =
+            Math.round(ghsPrice);
 
 
-        const errorMessage =
-            document.getElementById(
-                "errorMessage"
-            );
+        orderSummary.innerHTML = `
 
+            <div
+                style="
+                width:95px;
+                height:95px;
+                border-radius:15px;
+                background:#181818;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                font-size:35px;
+                "
+            >
+                🤖
+            </div>
 
+            <div>
 
-        /*
-        ==================================================
-        CONVERT USD → GHS
-        ==================================================
-        */
+                <h3>
+                    ${product.name}
+                </h3>
 
-        function convertToGHS(
-            usdPrice
-        ) {
-
-            return (
-                Number(usdPrice)
-                * USD_TO_GHS
-            );
-
-        }
-
-
-
-        /*
-        ==================================================
-        DISPLAY PRODUCT
-        ==================================================
-        */
-
-        if (!product) {
-
-            orderSummary.innerHTML = `
-
-                <p>
-                    Product not found.
+                <p class="usd-price">
+                    $${usdPrice.toFixed(2)} USD
                 </p>
 
-            `;
+                <p class="ghs-price">
+                    ≈ GH₵${roundedGHS}
+                </p>
 
-            totalPrice.textContent =
-                "--";
+            </div>
 
-            payButton.disabled =
-                true;
+        `;
 
-        } else {
 
-            const productName =
-                product.name
-                    .replaceAll("-", " ");
+        totalPrice.textContent =
+            "GH₵" + roundedGHS;
 
+    }
+
+
+    /* =========================
+       ERROR
+    ========================= */
+
+    function showError(message) {
+
+        errorMessage.textContent =
+            message;
+
+        errorMessage.style.display =
+            "block";
+
+    }
+
+
+    /* =========================
+       PAYSTACK
+    ========================= */
+
+    payButton.addEventListener(
+        "click",
+        function () {
+
+            errorMessage.style.display =
+                "none";
+
+
+            if (!product) {
+
+                showError(
+                    "Product not found."
+                );
+
+                return;
+
+            }
+
+
+            const name =
+                document
+                .getElementById("customerName")
+                .value
+                .trim();
+
+
+            const email =
+                document
+                .getElementById("customerEmail")
+                .value
+                .trim();
+
+
+            if (!name) {
+
+                showError(
+                    "Please enter your full name."
+                );
+
+                return;
+
+            }
+
+
+            if (!email) {
+
+                showError(
+                    "Please enter your email address."
+                );
+
+                return;
+
+            }
+
+
+            if (!email.includes("@")) {
+
+                showError(
+                    "Please enter a valid email address."
+                );
+
+                return;
+
+            }
+
+
+            /* Convert price */
 
             const usdPrice =
                 Number(product.price);
 
 
             const ghsPrice =
-                convertToGHS(
-                    usdPrice
-                );
-
-
-            const roundedGHS =
                 Math.round(
-                    ghsPrice
+                    convertToGHS(usdPrice)
                 );
 
 
-            orderSummary.innerHTML = `
+            /* Paystack uses pesewas */
 
-                <img
-                    src="${
-                        product.image ||
-                        "assets/covers/default.jpg"
-                    }"
-                    alt="${productName}"
-                >
+            const amount =
+                ghsPrice * 100;
 
-                <div>
 
-                    <h3>
-                        ${productName}
-                    </h3>
+            payButton.disabled = true;
 
-                    <p class="usd-price">
-                        $${usdPrice.toFixed(2)} USD
-                    </p>
+            payButton.textContent =
+                "Opening Paystack...";
 
-                    <p class="ghs-price">
-                        ≈ GH₵${roundedGHS}
-                    </p>
 
-                </div>
+            try {
 
-            `;
+                const paystack =
+                    new PaystackPop();
 
 
-            totalPrice.textContent =
-                "GH₵" + roundedGHS;
+                paystack.newTransaction({
 
-        }
+                    key:
+                        PAYSTACK_PUBLIC_KEY,
 
+                    email:
+                        email,
 
+                    amount:
+                        amount,
 
-        /*
-        ==================================================
-        GET PAYSTACK AMOUNT
-        ==================================================
+                    currency:
+                        "GHS",
 
-        Paystack uses the smallest currency unit.
 
-        GH₵115
-        =
-        11,500 pesewas
-        */
+                    metadata: {
 
-        function getPaystackAmount() {
+                        customer_name:
+                            name,
 
-            const usdPrice =
-                Number(
-                    product.price
-                );
+                        product_id:
+                            product.id,
 
+                        product_name:
+                            product.name,
 
-            const ghsPrice =
-                convertToGHS(
-                    usdPrice
-                );
+                        usd_price:
+                            usdPrice,
 
+                        ghs_price:
+                            ghsPrice
 
-            const roundedGHS =
-                Math.round(
-                    ghsPrice
-                );
+                    },
 
 
-            return (
-                roundedGHS * 100
-            );
+                    onSuccess:
+                        function(transaction) {
 
-        }
-
-
-
-        /*
-        ==================================================
-        SHOW ERROR
-        ==================================================
-        */
-
-        function showError(
-            message
-        ) {
-
-            errorMessage.textContent =
-                message;
-
-            errorMessage.style.display =
-                "block";
-
-        }
-
-
-
-        /*
-        ==================================================
-        PAYSTACK
-        ==================================================
-        */
-
-        payButton.addEventListener(
-            "click",
-            function () {
-
-                errorMessage.style.display =
-                    "none";
-
-
-                /*
-                PRODUCT CHECK
-                */
-
-                if (!product) {
-
-                    showError(
-                        "Product not found."
-                    );
-
-                    return;
-
-                }
-
-
-
-                /*
-                CUSTOMER NAME
-                */
-
-                const name =
-                    document
-                        .getElementById(
-                            "customerName"
-                        )
-                        .value
-                        .trim();
-
-
-
-                /*
-                CUSTOMER EMAIL
-                */
-
-                const email =
-                    document
-                        .getElementById(
-                            "customerEmail"
-                        )
-                        .value
-                        .trim();
-
-
-
-                /*
-                VALIDATION
-                */
-
-                if (!name) {
-
-                    showError(
-                        "Please enter your full name."
-                    );
-
-                    return;
-
-                }
-
-
-
-                if (!email) {
-
-                    showError(
-                        "Please enter your email address."
-                    );
-
-                    return;
-
-                }
-
-
-
-                if (
-                    !email.includes("@")
-                ) {
-
-                    showError(
-                        "Please enter a valid email address."
-                    );
-
-                    return;
-
-                }
-
-
-
-                /*
-                PUBLIC KEY CHECK
-                */
-
-                if (
-                    !PAYSTACK_PUBLIC_KEY ||
-                    PAYSTACK_PUBLIC_KEY ===
-                    "YOUR_PAYSTACK_TEST_PUBLIC_KEY"
-                ) {
-
-                    showError(
-                        "Paystack public key is missing."
-                    );
-
-                    return;
-
-                }
-
-
-
-                /*
-                DISABLE BUTTON
-                */
-
-                payButton.disabled =
-                    true;
-
-                payButton.textContent =
-                    "Opening Payment...";
-
-
-
-                /*
-                CALCULATE PAYMENT
-                */
-
-                const paystackAmount =
-                    getPaystackAmount();
-
-
-
-                /*
-                OPEN PAYSTACK
-                */
-
-                try {
-
-                    const paystack =
-                        new PaystackPop();
-
-
-                    paystack.newTransaction({
-
-                        key:
-                            PAYSTACK_PUBLIC_KEY,
-
-
-                        email:
-                            email,
-
-
-                        amount:
-                            paystackAmount,
-
-
-                        currency:
-                            "GHS",
-
-
-                        metadata: {
-
-                            customer_name:
-                                name,
-
-                            product_id:
-                                product.id,
-
-                            product_name:
-                                product.name,
-
-                            usd_price:
-                                Number(
-                                    product.price
-                                ),
-
-                            ghs_price:
-                                Math.round(
-                                    convertToGHS(
-                                        product.price
-                                    )
+                            window.location.href =
+                                "success.html"
+                                + "?reference="
+                                + encodeURIComponent(
+                                    transaction.reference
                                 )
+                                + "&product="
+                                + encodeURIComponent(
+                                    product.id
+                                );
 
                         },
 
 
-                        /*
-                        ==========================================
-                        PAYMENT SUCCESS
-                        ==========================================
-                        */
+                    onCancel:
+                        function() {
 
-                        onSuccess:
-                            function(transaction) {
+                            payButton.disabled =
+                                false;
 
-                                window.location.href =
-                                    "success.html"
-                                    + "?reference="
-                                    + encodeURIComponent(
-                                        transaction.reference
-                                    )
-                                    + "&product="
-                                    + encodeURIComponent(
-                                        product.id
-                                    );
+                            payButton.textContent =
+                                "Pay Now →";
 
-                            },
+                            showError(
+                                "Payment was cancelled."
+                            );
 
+                        }
 
-                        /*
-                        ==========================================
-                        PAYMENT CANCELLED
-                        ==========================================
-                        */
+                });
 
-                        onCancel:
-                            function() {
+            } catch (error) {
 
-                                payButton.disabled =
-                                    false;
+                console.error(error);
 
-                                payButton.textContent =
-                                    "Pay Now →";
+                payButton.disabled =
+                    false;
 
-                                showError(
-                                    "Payment was cancelled."
-                                );
+                payButton.textContent =
+                    "Pay Now →";
 
-                            }
-
-                    });
-
-                }
-
-
-                catch (error) {
-
-                    console.error(error);
-
-                    payButton.disabled =
-                        false;
-
-                    payButton.textContent =
-                        "Pay Now →";
-
-                    showError(
-                        "Unable to open Paystack. Please try again."
-                    );
-
-                }
+                showError(
+                    "Unable to open Paystack. Please try again."
+                );
 
             }
-        );
 
-    </script>
+        }
+    );
 
+</script>
 
 </body>
-
 </html>
 ```
