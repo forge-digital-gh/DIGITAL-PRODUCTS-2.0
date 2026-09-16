@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,287 +25,185 @@
     <style>
 
         .checkout-page {
-
             max-width: 1000px;
-
             margin: 0 auto;
-
             padding: 80px 20px;
-
         }
 
 
         .checkout-title {
-
             text-align: center;
-
             margin-bottom: 50px;
-
         }
 
 
         .checkout-title h1 {
-
-            font-size:
-                clamp(40px, 6vw, 64px);
-
+            font-size: clamp(40px, 6vw, 64px);
             margin-bottom: 12px;
-
         }
 
 
         .checkout-title p {
-
             color: #999;
-
         }
 
 
         .checkout-layout {
-
             display: grid;
-
-            grid-template-columns:
-                1fr 1fr;
-
+            grid-template-columns: 1fr 1fr;
             gap: 40px;
-
         }
 
 
         .checkout-card {
-
             background: #101010;
-
-            border:
-                1px solid
-                rgba(255,255,255,0.08);
-
+            border: 1px solid rgba(255,255,255,0.08);
             border-radius: 22px;
-
             padding: 30px;
-
         }
 
 
         .checkout-card h2 {
-
             margin-bottom: 25px;
-
         }
 
 
         .field {
-
             margin-bottom: 20px;
-
         }
 
 
         .field label {
-
             display: block;
-
             margin-bottom: 8px;
-
             font-weight: 700;
-
         }
 
 
         .field input {
-
             width: 100%;
-
             box-sizing: border-box;
-
             padding: 15px;
-
             border-radius: 12px;
-
-            border:
-                1px solid
-                rgba(255,255,255,0.1);
-
+            border: 1px solid rgba(255,255,255,0.1);
             background: #080808;
-
             color: white;
-
             font-size: 16px;
-
             outline: none;
-
         }
 
 
         .field input:focus {
-
-            border-color:
-                #b979ff;
-
+            border-color: #b979ff;
         }
 
 
         .product-summary {
-
             display: flex;
-
             gap: 18px;
-
             align-items: center;
-
-            margin-bottom: 30px;
-
+            margin-bottom: 25px;
         }
 
 
         .product-summary img {
-
             width: 100px;
-
             height: 100px;
-
             object-fit: cover;
-
             border-radius: 15px;
-
         }
 
 
         .product-summary h3 {
-
-            margin:
-                0 0 8px;
-
+            margin: 0 0 8px;
         }
 
 
-        .product-summary p {
-
+        .usd-price {
             margin: 0;
-
-            color:
-                #c8ff35;
-
+            color: #c8ff35;
             font-weight: 800;
+        }
 
+
+        .ghs-price {
+            margin-top: 5px;
+            color: #999;
+            font-size: 14px;
         }
 
 
         .total-row {
-
             display: flex;
-
             justify-content: space-between;
-
-            border-top:
-                1px solid
-                rgba(255,255,255,0.1);
-
+            border-top: 1px solid rgba(255,255,255,0.1);
             padding-top: 20px;
-
             margin-top: 20px;
-
             font-size: 22px;
-
             font-weight: 800;
-
         }
 
 
         .pay-btn {
-
             width: 100%;
-
             border: none;
-
             padding: 17px;
-
             margin-top: 25px;
-
             border-radius: 14px;
-
-            background:
-                #c8ff35;
-
-            color:
-                #050505;
-
+            background: #c8ff35;
+            color: #050505;
             font-size: 17px;
-
             font-weight: 900;
-
             cursor: pointer;
-
-            transition:
-                0.25s ease;
-
+            transition: 0.25s ease;
         }
 
 
         .pay-btn:hover {
-
-            transform:
-                translateY(-3px);
-
-            box-shadow:
-                0 10px 30px
-                rgba(200,255,53,0.2);
-
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(200,255,53,0.2);
         }
 
 
         .pay-btn:disabled {
-
             opacity: 0.5;
-
             cursor: not-allowed;
-
             transform: none;
-
             box-shadow: none;
-
         }
 
 
         .secure-note {
-
             text-align: center;
-
             color: #777;
-
             font-size: 13px;
-
             margin-top: 15px;
-
         }
 
 
         .error-message {
-
-            color:
-                #ff6b6b;
-
+            color: #ff6b6b;
             margin-top: 15px;
-
             display: none;
+        }
 
+
+        .rate-note {
+            color: #777;
+            font-size: 12px;
+            margin-top: 20px;
+            text-align: center;
         }
 
 
         @media (max-width: 800px) {
 
             .checkout-layout {
-
                 grid-template-columns: 1fr;
-
             }
 
-
             .checkout-page {
-
                 padding-top: 50px;
-
             }
 
         }
@@ -466,6 +365,14 @@
 
                 </div>
 
+
+                <div class="rate-note">
+
+                    Prices are displayed in USD and converted
+                    to Ghana Cedis for Paystack checkout.
+
+                </div>
+
             </div>
 
         </div>
@@ -495,9 +402,9 @@
     <script>
 
         /*
-        ==========================================
+        ==================================================
         PAYSTACK PUBLIC KEY
-        ==========================================
+        ==================================================
         */
 
         const PAYSTACK_PUBLIC_KEY =
@@ -506,9 +413,30 @@
 
 
         /*
-        ==========================================
+        ==================================================
+        EXCHANGE RATE
+        ==================================================
+
+        1 USD = GH₵11.50
+
+        Example:
+
+        $9.99 × 11.50
+        = GH₵114.885
+
+        Rounded:
+        GH₵115
+        */
+
+        const USD_TO_GHS =
+            11.50;
+
+
+
+        /*
+        ==================================================
         GET PRODUCT ID
-        ==========================================
+        ==================================================
         */
 
         const params =
@@ -523,9 +451,9 @@
 
 
         /*
-        ==========================================
+        ==================================================
         FIND PRODUCT
-        ==========================================
+        ==================================================
         */
 
         const product =
@@ -537,9 +465,9 @@
 
 
         /*
-        ==========================================
+        ==================================================
         ELEMENTS
-        ==========================================
+        ==================================================
         */
 
         const orderSummary =
@@ -568,17 +496,38 @@
 
 
         /*
-        ==========================================
+        ==================================================
+        CONVERT USD → GHS
+        ==================================================
+        */
+
+        function convertToGHS(
+            usdPrice
+        ) {
+
+            return (
+                Number(usdPrice)
+                * USD_TO_GHS
+            );
+
+        }
+
+
+
+        /*
+        ==================================================
         DISPLAY PRODUCT
-        ==========================================
+        ==================================================
         */
 
         if (!product) {
 
             orderSummary.innerHTML = `
+
                 <p>
                     Product not found.
                 </p>
+
             `;
 
             totalPrice.textContent =
@@ -592,6 +541,22 @@
             const productName =
                 product.name
                     .replaceAll("-", " ");
+
+
+            const usdPrice =
+                Number(product.price);
+
+
+            const ghsPrice =
+                convertToGHS(
+                    usdPrice
+                );
+
+
+            const roundedGHS =
+                Math.round(
+                    ghsPrice
+                );
 
 
             orderSummary.innerHTML = `
@@ -610,8 +575,12 @@
                         ${productName}
                     </h3>
 
-                    <p>
-                        $${product.price}
+                    <p class="usd-price">
+                        $${usdPrice.toFixed(2)} USD
+                    </p>
+
+                    <p class="ghs-price">
+                        ≈ GH₵${roundedGHS}
                     </p>
 
                 </div>
@@ -620,42 +589,46 @@
 
 
             totalPrice.textContent =
-                "$" + product.price;
+                "GH₵" + roundedGHS;
 
         }
 
 
 
         /*
-        ==========================================
-        AMOUNT
-        ==========================================
+        ==================================================
+        GET PAYSTACK AMOUNT
+        ==================================================
+
+        Paystack uses the smallest currency unit.
+
+        GH₵115
+        =
+        11,500 pesewas
         */
 
-        function getAmount() {
+        function getPaystackAmount() {
 
-            const numericPrice =
+            const usdPrice =
                 Number(
-                    String(product.price)
-                        .replace(
-                            /[^\d.]/g,
-                            ""
-                        )
+                    product.price
                 );
 
 
-            /*
-            Paystack expects
-            the smallest currency unit.
+            const ghsPrice =
+                convertToGHS(
+                    usdPrice
+                );
 
-            Example:
-            9.99 GHS
-            =
-            999 pesewas
-            */
 
-            return Math.round(
-                numericPrice * 100
+            const roundedGHS =
+                Math.round(
+                    ghsPrice
+                );
+
+
+            return (
+                roundedGHS * 100
             );
 
         }
@@ -663,12 +636,14 @@
 
 
         /*
-        ==========================================
-        ERROR
-        ==========================================
+        ==================================================
+        SHOW ERROR
+        ==================================================
         */
 
-        function showError(message) {
+        function showError(
+            message
+        ) {
 
             errorMessage.textContent =
                 message;
@@ -681,9 +656,9 @@
 
 
         /*
-        ==========================================
-        PAY
-        ==========================================
+        ==================================================
+        PAYSTACK
+        ==================================================
         */
 
         payButton.addEventListener(
@@ -813,7 +788,16 @@
 
 
                 /*
-                PAYSTACK
+                CALCULATE PAYMENT
+                */
+
+                const paystackAmount =
+                    getPaystackAmount();
+
+
+
+                /*
+                OPEN PAYSTACK
                 */
 
                 try {
@@ -833,7 +817,7 @@
 
 
                         amount:
-                            getAmount(),
+                            paystackAmount,
 
 
                         currency:
@@ -849,28 +833,31 @@
                                 product.id,
 
                             product_name:
-                                product.name
+                                product.name,
+
+                            usd_price:
+                                Number(
+                                    product.price
+                                ),
+
+                            ghs_price:
+                                Math.round(
+                                    convertToGHS(
+                                        product.price
+                                    )
+                                )
 
                         },
 
 
                         /*
-                        ==================================
+                        ==========================================
                         PAYMENT SUCCESS
-                        ==================================
+                        ==========================================
                         */
 
                         onSuccess:
                             function(transaction) {
-
-                                /*
-                                Send BOTH:
-
-                                reference
-                                product
-
-                                to success.html
-                                */
 
                                 window.location.href =
                                     "success.html"
@@ -887,9 +874,9 @@
 
 
                         /*
-                        ==================================
+                        ==========================================
                         PAYMENT CANCELLED
-                        ==================================
+                        ==========================================
                         */
 
                         onCancel:
@@ -937,3 +924,4 @@
 </body>
 
 </html>
+```
