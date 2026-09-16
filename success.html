@@ -491,7 +491,7 @@ document.getElementById(
         ? product.name
         : "Digital Product";
 
-
+```html
 // =====================================
 // DOWNLOAD BUTTON
 // =====================================
@@ -501,17 +501,14 @@ const downloadButton =
         "downloadButton"
     );
 
-
 const downloadStatus =
     document.getElementById(
         "downloadStatus"
     );
 
-
 downloadButton.addEventListener(
     "click",
-    async function () {
-
+    function () {
 
         if (!product) {
 
@@ -519,104 +516,50 @@ downloadButton.addEventListener(
                 "Product file not found.";
 
             return;
-
         }
-
 
         downloadButton.disabled = true;
 
         downloadButton.textContent =
-            "Preparing Download...";
+            "Opening Download...";
 
         downloadStatus.textContent =
-            "Please wait...";
+            "Preparing your file...";
 
 
-        // GitHub raw file URL
+        // =====================================
+        // GITHUB FILE URL
+        // =====================================
 
         const folder =
-            product.name;
+            encodeURIComponent(product.name);
+
+        const file =
+            encodeURIComponent(product.file);
 
 
-        const rawUrl =
-            "https://raw.githubusercontent.com/" +
-            "forge-digital-gh/DIGITAL-PRODUCTS-2.0/" +
-            "main/" +
-            encodeURIComponent(folder).replace(
-                /%2F/g,
-                "%20"
-            ) +
+        const githubUrl =
+            "https://github.com/" +
+            "forge-digital-gh/" +
+            "DIGITAL-PRODUCTS-2.0/" +
+            "blob/main/" +
+            folder +
             "/" +
-            product.file;
+            file;
 
 
-        try {
+        // =====================================
+        // OPEN FILE
+        // =====================================
+
+        window.open(
+            githubUrl,
+            "_blank"
+        );
 
 
-            const response =
-                await fetch(rawUrl);
-
-
-            if (!response.ok) {
-
-                throw new Error(
-                    "File not found"
-                );
-
-            }
-
-
-            const blob =
-                await response.blob();
-
-
-            const blobUrl =
-                URL.createObjectURL(blob);
-
-
-            const link =
-                document.createElement("a");
-
-
-            link.href =
-                blobUrl;
-
-
-            link.download =
-                product.file;
-
-
-            document.body.appendChild(
-                link
-            );
-
-
-            link.click();
-
-
-            link.remove();
-
-
-            URL.revokeObjectURL(
-                blobUrl
-            );
-
-
-            downloadStatus.textContent =
-                "Download started ✓";
-
-
-        } catch (error) {
-
-
-            console.error(error);
-
-
-            downloadStatus.textContent =
-                "Download failed. Please check the product file.";
-
-
-        }
+        downloadStatus.textContent =
+            "Your product file is ready ✓";
 
 
         downloadButton.disabled =
@@ -626,14 +569,6 @@ downloadButton.addEventListener(
         downloadButton.textContent =
             "Download Product →";
 
-
     }
 );
-
-</script>
-
-
-</body>
-
-</html>
 ```
