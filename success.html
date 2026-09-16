@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Payment Successful | Forge Digital</title>
 
     <style>
@@ -18,8 +19,8 @@
             color: white;
             font-family: Arial, sans-serif;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             padding: 20px;
         }
 
@@ -32,7 +33,7 @@
         .logo {
             font-size: 25px;
             font-weight: 900;
-            margin-bottom: 35px;
+            margin-bottom: 40px;
         }
 
         .logo span {
@@ -46,62 +47,60 @@
             padding: 45px 30px;
         }
 
-        .icon {
+        .success-icon {
             width: 80px;
             height: 80px;
+            border-radius: 50%;
             background: #00ff88;
             color: #000;
-            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 42px;
+            font-size: 40px;
             font-weight: bold;
             margin: 0 auto 25px;
         }
 
         h1 {
-            font-size: 35px;
+            font-size: 36px;
             margin: 10px 0;
         }
 
         .message {
             color: #999;
             line-height: 1.6;
+            margin-bottom: 30px;
         }
 
-        .info {
+        .details {
             background: #080808;
             border: 1px solid #222;
             border-radius: 15px;
             padding: 20px;
-            margin: 30px 0 25px;
+            text-align: left;
+            margin-bottom: 25px;
         }
 
-        .row {
+        .detail {
             display: flex;
             justify-content: space-between;
-            gap: 15px;
-            padding: 13px 0;
+            gap: 20px;
+            padding: 12px 0;
             border-bottom: 1px solid #222;
         }
 
-        .row:last-child {
+        .detail:last-child {
             border-bottom: none;
         }
 
-        .label {
+        .detail span:first-child {
             color: #777;
         }
 
-        .value {
+        .detail span:last-child {
+            color: white;
             text-align: right;
             word-break: break-word;
-        }
-
-        .paid {
-            color: #00ff88;
-            font-weight: bold;
         }
 
         .download {
@@ -113,7 +112,7 @@
             text-decoration: none;
             border-radius: 12px;
             font-weight: 900;
-            font-size: 16px;
+            margin-top: 20px;
         }
 
         .download:hover {
@@ -130,6 +129,13 @@
         .home:hover {
             color: #00ff88;
         }
+
+        .warning {
+            margin-top: 25px;
+            color: #555;
+            font-size: 12px;
+            line-height: 1.5;
+        }
     </style>
 </head>
 
@@ -143,31 +149,32 @@
 
     <div class="card">
 
-        <div class="icon">✓</div>
+        <div class="success-icon">
+            ✓
+        </div>
 
         <h1>Payment Successful!</h1>
 
         <p class="message">
-            Thank you for your purchase.
-            Your digital product is ready.
+            Thank you for your purchase. Your payment has been received.
         </p>
 
-        <div class="info">
+        <div class="details">
 
-            <div class="row">
-                <span class="label">Product</span>
-                <span class="value" id="productName"></span>
+            <div class="detail">
+                <span>Product</span>
+                <span id="productName">Loading...</span>
             </div>
 
-            <div class="row">
-                <span class="label">Reference</span>
-                <span class="value" id="reference"></span>
+            <div class="detail">
+                <span>Reference</span>
+                <span id="reference">Loading...</span>
             </div>
 
-            <div class="row">
-                <span class="label">Status</span>
-                <span class="value paid">
-                    PAID ✓
+            <div class="detail">
+                <span>Status</span>
+                <span style="color:#00ff88;">
+                    PAID
                 </span>
             </div>
 
@@ -175,16 +182,19 @@
 
         <a
             id="downloadButton"
-            class="download"
             href="#"
-            target="_blank"
+            class="download"
         >
-            ⬇ Download Your Product
+            Download Product →
         </a>
 
         <a href="index.html" class="home">
             ← Back to Forge Digital
         </a>
+
+        <p class="warning">
+            Keep your payment reference for your records.
+        </p>
 
     </div>
 
@@ -195,66 +205,72 @@
 
 const params = new URLSearchParams(window.location.search);
 
-const productId = params.get("product");
+const reference =
+    params.get("reference");
 
-const reference = params.get("reference");
+const productId =
+    params.get("product");
 
 
-// PRODUCT INFORMATION
+// SHOW REFERENCE
 
-const productData = {
+document.getElementById("reference").textContent =
+    reference || "Not available";
 
-    "AI-Prompts-Digital-Products-Kit": {
-        name: "AI Prompts Digital Products Kit",
 
-        file: "https://raw.githubusercontent.com/forge-digital-gh/DIGITAL-PRODUCTS-2.0/main/AI%20Prompts%20Digital%20Products%20Kit/AI-Prompts-Digital-Products-Kit.md"
-    },
+// PRODUCT DOWNLOADS
 
-    "AI-Content-Creator-Template-Pack": {
-        name: "AI Content Creator Template Pack",
+const downloads = {
 
-        file: "https://raw.githubusercontent.com/forge-digital-gh/DIGITAL-PRODUCTS-2.0/main/AI%20Content%20Creator%20Template%20Pack/AI-Content-Creator-Template-Pack.md"
-    },
+    "AI-Prompts-Digital-Products-Kit":
+        "https://raw.githubusercontent.com/forge-digital-gh/DIGITAL-PRODUCTS-2.0/main/AI%20Prompts%20Digital%20Products%20Kit/AI-Prompts-Digital-Products-Kit.md",
 
-    "AI-Business-Marketing-Prompt-Pack": {
-        name: "AI Business Marketing Prompt Pack",
+    "AI-Content-Creator-Template-Pack":
+        "https://raw.githubusercontent.com/forge-digital-gh/DIGITAL-PRODUCTS-2.0/main/AI%20Content%20Creator%20Template%20Pack/AI-Content-Creator-Template-Pack.md",
 
-        file: "https://raw.githubusercontent.com/forge-digital-gh/DIGITAL-PRODUCTS-2.0/main/AI%20Business%20Marketing%20Prompt%20Pack/AI-Business-Marketing-Prompt-Pack.md"
-    },
+    "AI-Business-Marketing-Prompt-Pack":
+        "https://raw.githubusercontent.com/forge-digital-gh/DIGITAL-PRODUCTS-2.0/main/AI%20Business%20Marketing%20Prompt%20Pack/AI-Business-Marketing-Prompt-Pack.md",
 
-    "AI-Resume-Career-Prompt-Kit": {
-        name: "AI Resume Career Prompt Kit",
-
-        file: "https://raw.githubusercontent.com/forge-digital-gh/DIGITAL-PRODUCTS-2.0/main/AI%20Resume%20Career%20Prompt%20Kit/AI-Resume-Career-Prompt-Kit.md"
-    }
-
+    "AI-Resume-Career-Prompt-Kit":
+        "https://raw.githubusercontent.com/forge-digital-gh/DIGITAL-PRODUCTS-2.0/main/AI%20Resume%20Career%20Prompt%20Kit/AI-Resume-Career-Prompt-Kit.md"
 };
 
 
-// FIND PRODUCT
+// PRODUCT NAMES
 
-const product = productData[productId];
+const names = {
 
+    "AI-Prompts-Digital-Products-Kit":
+        "AI Prompts Digital Products Kit",
 
-// DISPLAY
+    "AI-Content-Creator-Template-Pack":
+        "AI Content Creator Template Pack",
+
+    "AI-Business-Marketing-Prompt-Pack":
+        "AI Business Marketing Prompt Pack",
+
+    "AI-Resume-Career-Prompt-Kit":
+        "AI Resume Career Prompt Kit"
+};
+
 
 document.getElementById("productName").textContent =
-    product ? product.name : "Digital Product";
-
-document.getElementById("reference").textContent =
-    reference || "Test Payment";
+    names[productId] || "Digital Product";
 
 
-// DOWNLOAD
+// DOWNLOAD BUTTON
 
-if (product) {
+const downloadButton =
+    document.getElementById("downloadButton");
 
-    document.getElementById("downloadButton").href =
-        product.file;
+if (downloads[productId]) {
+
+    downloadButton.href =
+        downloads[productId];
 
 } else {
 
-    document.getElementById("downloadButton").style.display =
+    downloadButton.style.display =
         "none";
 
 }
