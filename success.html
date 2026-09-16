@@ -60,11 +60,8 @@
 
         .card {
             background: #101016;
-
             border: 1px solid #292936;
-
             border-radius: 25px;
-
             padding: 45px 30px;
 
             box-shadow:
@@ -99,9 +96,7 @@
 
         .message {
             color: #999;
-
             line-height: 1.6;
-
             margin-bottom: 30px;
         }
 
@@ -178,16 +173,6 @@
 
             box-shadow:
                 0 12px 35px rgba(139,92,246,.3);
-        }
-
-        .download:disabled {
-            opacity: .6;
-
-            cursor: wait;
-
-            transform: none;
-
-            box-shadow: none;
         }
 
         .status {
@@ -271,7 +256,7 @@
                 </span>
 
                 <span id="productName">
-                    Loading...
+                    AI Prompts Digital Products Kit
                 </span>
 
             </div>
@@ -344,7 +329,7 @@
 
 
 // =====================================
-// GET PAYMENT INFORMATION
+// PAYMENT REFERENCE
 // =====================================
 
 const params =
@@ -352,14 +337,8 @@ const params =
         window.location.search
     );
 
-
 const reference =
     params.get("reference");
-
-
-const productId =
-    params.get("product");
-
 
 document.getElementById(
     "reference"
@@ -368,130 +347,29 @@ document.getElementById(
 
 
 // =====================================
-// ALL 20 PRODUCTS
+// TEST PRODUCT
 // =====================================
 
-const products = {
+const productName =
+    "AI Prompts Digital Products Kit";
 
-    "AI-Prompts-Digital-Products-Kit": {
-        name: "AI Prompts Digital Products Kit",
-        file: "AI-Prompts-Digital-Products-Kit.md"
-    },
-
-    "AI-Content-Creator-Template-Pack": {
-        name: "AI Content Creator Template Pack",
-        file: "AI-Content-Creator-Template-Pack.md"
-    },
-
-    "AI-Business-Marketing-Prompt-Pack": {
-        name: "AI Business Marketing Prompt Pack",
-        file: "AI-Business-Marketing-Prompt-Pack.md"
-    },
-
-    "AI-Resume-Career-Prompt-Kit": {
-        name: "AI Resume Career Prompt Kit",
-        file: "AI-Resume-Career-Prompt-Kit.md"
-    },
-
-    "AI-Social-Media-Content-Kit": {
-        name: "AI Social Media Content Kit",
-        file: "AI-Social-Media-Content-Kit.md"
-    },
-
-    "AI-YouTube-Creator-Prompt-Pack": {
-        name: "AI YouTube Creator Prompt Pack",
-        file: "AI-YouTube-Creator-Prompt-Pack.md"
-    },
-
-    "AI-Business-Idea-Generator-Kit": {
-        name: "AI Business Idea Generator Kit",
-        file: "AI-Business-Idea-Generator-Kit.md"
-    },
-
-    "AI-Freelancer-Prompt-Kit": {
-        name: "AI Freelancer Prompt Kit",
-        file: "AI-Freelancer-Prompt-Kit.md"
-    },
-
-    "AI-Email-Marketing-Prompt-Pack": {
-        name: "AI Email Marketing Prompt Pack",
-        file: "AI-Email-Marketing-Prompt-Pack.md"
-    },
-
-    "AI-Copywriting-Prompt-Master-Kit": {
-        name: "AI Copywriting Prompt Master Kit",
-        file: "AI-Copywriting-Prompt-Master-Kit.md"
-    },
-
-    "AI-Website-Creation-Prompt-Kit": {
-        name: "AI Website Creation Prompt Kit",
-        file: "AI-Website-Creation-Prompt-Kit.md"
-    },
-
-    "AI-Graphic-Design-Prompt-Pack": {
-        name: "AI Graphic Design Prompt Pack",
-        file: "AI-Graphic-Design-Prompt-Pack.md"
-    },
-
-    "AI-Productivity-Prompt-Kit": {
-        name: "AI Productivity Prompt Kit",
-        file: "AI-Productivity-Prompt-Kit.md"
-    },
-
-    "AI-Study-Prompt-Pack": {
-        name: "AI Study Prompt Pack",
-        file: "AI-Study-Prompt-Pack.md"
-    },
-
-    "AI-Ecommerce-Prompt-Kit": {
-        name: "AI Ecommerce Prompt Kit",
-        file: "AI-Ecommerce-Prompt-Kit.md"
-    },
-
-    "AI-Small-Business-Prompt-Pack": {
-        name: "AI Small Business Prompt Pack",
-        file: "AI-Small-Business-Prompt-Pack.md"
-    },
-
-    "AI-Instagram-Growth-Prompt-Kit": {
-        name: "AI Instagram Growth Prompt Kit",
-        file: "AI-Instagram-Growth-Prompt-Kit.md"
-    },
-
-    "AI-ChatGPT-Master-Prompt-Pack": {
-        name: "AI ChatGPT Master Prompt Pack",
-        file: "AI-ChatGPT-Master-Prompt-Pack.md"
-    },
-
-    "AI-Digital-Product-Creator-Kit": {
-        name: "AI Digital Product Creator Kit",
-        file: "AI-Digital-Product-Creator-Kit.md"
-    },
-
-    "Ultimate-AI-Prompt-Bundle": {
-        name: "Ultimate AI Prompt Bundle",
-        file: "Ultimate-AI-Prompt-Bundle.md"
-    }
-
-};
+const productFile =
+    "AI-Prompts-Digital-Products-Kit.md";
 
 
 // =====================================
-// SHOW PRODUCT NAME
+// EXACT GITHUB FILE
 // =====================================
 
-const product =
-    products[productId];
+const githubFile =
+    "https://github.com/" +
+    "forge-digital-gh/" +
+    "DIGITAL-PRODUCTS-2.0/" +
+    "blob/main/" +
+    "AI%20Prompts%20Digital%20Products%20Kit/" +
+    "AI-Prompts-Digital-Products-Kit.md";
 
 
-document.getElementById(
-    "productName"
-).textContent =
-    product
-        ? product.name
-        : "Digital Product";
-
-```html
 // =====================================
 // DOWNLOAD BUTTON
 // =====================================
@@ -506,69 +384,45 @@ const downloadStatus =
         "downloadStatus"
     );
 
+
 downloadButton.addEventListener(
     "click",
     function () {
 
-        if (!product) {
-
-            downloadStatus.textContent =
-                "Product file not found.";
-
-            return;
-        }
-
         downloadButton.disabled = true;
 
         downloadButton.textContent =
-            "Opening Download...";
+            "Opening Product...";
 
         downloadStatus.textContent =
-            "Preparing your file...";
+            "Preparing your product...";
 
-
-        // =====================================
-        // GITHUB FILE URL
-        // =====================================
-
-        const folder =
-            encodeURIComponent(product.name);
-
-        const file =
-            encodeURIComponent(product.file);
-
-
-        const githubUrl =
-            "https://github.com/" +
-            "forge-digital-gh/" +
-            "DIGITAL-PRODUCTS-2.0/" +
-            "blob/main/" +
-            folder +
-            "/" +
-            file;
-
-
-        // =====================================
-        // OPEN FILE
-        // =====================================
 
         window.open(
-            githubUrl,
+            githubFile,
             "_blank"
         );
 
 
-        downloadStatus.textContent =
-            "Your product file is ready ✓";
+        setTimeout(function () {
 
+            downloadButton.disabled = false;
 
-        downloadButton.disabled =
-            false;
+            downloadButton.textContent =
+                "Download Product →";
 
+            downloadStatus.textContent =
+                "Product opened ✓";
 
-        downloadButton.textContent =
-            "Download Product →";
+        }, 1000);
 
     }
 );
+
+</script>
+
+
+</body>
+
+</html>
 ```
