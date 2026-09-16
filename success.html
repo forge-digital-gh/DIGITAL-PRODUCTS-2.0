@@ -21,11 +21,19 @@
             margin: 0;
             min-height: 100vh;
 
-            background: #07070b;
+            background:
+                radial-gradient(
+                    circle at top,
+                    #18102d,
+                    #07070b 55%
+                );
 
             color: white;
 
-            font-family: Arial, sans-serif;
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
 
             display: flex;
             align-items: center;
@@ -36,14 +44,14 @@
 
         .container {
             width: 100%;
-            max-width: 550px;
+            max-width: 560px;
             text-align: center;
         }
 
         .logo {
             font-size: 25px;
             font-weight: 900;
-            margin-bottom: 35px;
+            margin-bottom: 30px;
         }
 
         .logo span {
@@ -53,34 +61,35 @@
         .card {
             background: #101016;
 
-            border: 1px solid #272735;
+            border: 1px solid #292936;
 
             border-radius: 25px;
 
             padding: 45px 30px;
 
             box-shadow:
-                0 25px 70px rgba(0,0,0,.45);
+                0 30px 80px rgba(0,0,0,.5);
         }
 
         .success-icon {
-            width: 80px;
-            height: 80px;
+            width: 82px;
+            height: 82px;
+
+            margin: 0 auto 25px;
 
             border-radius: 50%;
 
             background: #8b5cf6;
 
-            color: white;
-
             display: flex;
             align-items: center;
             justify-content: center;
 
-            font-size: 40px;
-            font-weight: bold;
+            font-size: 42px;
+            font-weight: 900;
 
-            margin: 0 auto 25px;
+            box-shadow:
+                0 0 40px rgba(139,92,246,.35);
         }
 
         h1 {
@@ -97,7 +106,7 @@
         }
 
         .details {
-            background: #08080c;
+            background: #08080d;
 
             border: 1px solid #22222d;
 
@@ -117,7 +126,7 @@
 
             gap: 20px;
 
-            padding: 12px 0;
+            padding: 13px 0;
 
             border-bottom: 1px solid #22222d;
         }
@@ -145,17 +154,17 @@
 
             padding: 17px;
 
+            border: none;
+
+            border-radius: 12px;
+
             background: #8b5cf6;
 
             color: white;
 
-            border-radius: 12px;
-
-            text-decoration: none;
+            font-size: 16px;
 
             font-weight: 900;
-
-            font-size: 16px;
 
             cursor: pointer;
 
@@ -168,7 +177,27 @@
             transform: translateY(-2px);
 
             box-shadow:
-                0 12px 30px rgba(139,92,246,.3);
+                0 12px 35px rgba(139,92,246,.3);
+        }
+
+        .download:disabled {
+            opacity: .6;
+
+            cursor: wait;
+
+            transform: none;
+
+            box-shadow: none;
+        }
+
+        .status {
+            min-height: 20px;
+
+            margin-top: 12px;
+
+            color: #777;
+
+            font-size: 13px;
         }
 
         .home {
@@ -179,6 +208,8 @@
             color: #777;
 
             text-decoration: none;
+
+            font-weight: 600;
         }
 
         .home:hover {
@@ -275,14 +306,19 @@
         </div>
 
 
-        <a
+        <button
             id="downloadButton"
-            href="#"
             class="download"
-            download
+            type="button"
         >
             Download Product →
-        </a>
+        </button>
+
+
+        <div
+            id="downloadStatus"
+            class="status"
+        ></div>
 
 
         <a
@@ -307,6 +343,10 @@
 <script>
 
 
+// =====================================
+// GET PAYMENT INFORMATION
+// =====================================
+
 const params =
     new URLSearchParams(
         window.location.search
@@ -321,67 +361,140 @@ const productId =
     params.get("product");
 
 
-// ==========================
-// PRODUCT NAMES
-// ==========================
-
-const names = {
-
-    "AI-Prompts-Digital-Products-Kit":
-        "AI Prompts Digital Products Kit",
-
-    "AI-Content-Creator-Template-Pack":
-        "AI Content Creator Template Pack",
-
-    "AI-Business-Marketing-Prompt-Pack":
-        "AI Business Marketing Prompt Pack",
-
-    "AI-Resume-Career-Prompt-Kit":
-        "AI Resume Career Prompt Kit"
-
-};
-
-
-// ==========================
-// GITHUB DOWNLOAD FILES
-// ==========================
-
-const downloads = {
-
-    "AI-Prompts-Digital-Products-Kit":
-        "https://forge-digital-gh.github.io/DIGITAL-PRODUCTS-2.0/AI%20Prompts%20Digital%20Products%20Kit/AI-Prompts-Digital-Products-Kit.md",
-
-    "AI-Content-Creator-Template-Pack":
-        "https://forge-digital-gh.github.io/DIGITAL-PRODUCTS-2.0/AI%20Content%20Creator%20Template%20Pack/AI-Content-Creator-Template-Pack.md",
-
-    "AI-Business-Marketing-Prompt-Pack":
-        "https://forge-digital-gh.github.io/DIGITAL-PRODUCTS-2.0/AI%20Business%20Marketing%20Prompt%20Pack/AI-Business-Marketing-Prompt-Pack.md",
-
-    "AI-Resume-Career-Prompt-Kit":
-        "https://forge-digital-gh.github.io/DIGITAL-PRODUCTS-2.0/AI%20Resume%20Career%20Prompt%20Kit/AI-Resume-Career-Prompt-Kit.md"
-
-};
-
-
-// ==========================
-// DISPLAY DATA
-// ==========================
-
-document.getElementById(
-    "productName"
-).textContent =
-    names[productId] || "Digital Product";
-
-
 document.getElementById(
     "reference"
 ).textContent =
     reference || "Not available";
 
 
-// ==========================
-// DOWNLOAD
-// ==========================
+// =====================================
+// ALL 20 PRODUCTS
+// =====================================
+
+const products = {
+
+    "AI-Prompts-Digital-Products-Kit": {
+        name: "AI Prompts Digital Products Kit",
+        file: "AI-Prompts-Digital-Products-Kit.md"
+    },
+
+    "AI-Content-Creator-Template-Pack": {
+        name: "AI Content Creator Template Pack",
+        file: "AI-Content-Creator-Template-Pack.md"
+    },
+
+    "AI-Business-Marketing-Prompt-Pack": {
+        name: "AI Business Marketing Prompt Pack",
+        file: "AI-Business-Marketing-Prompt-Pack.md"
+    },
+
+    "AI-Resume-Career-Prompt-Kit": {
+        name: "AI Resume Career Prompt Kit",
+        file: "AI-Resume-Career-Prompt-Kit.md"
+    },
+
+    "AI-Social-Media-Content-Kit": {
+        name: "AI Social Media Content Kit",
+        file: "AI-Social-Media-Content-Kit.md"
+    },
+
+    "AI-YouTube-Creator-Prompt-Pack": {
+        name: "AI YouTube Creator Prompt Pack",
+        file: "AI-YouTube-Creator-Prompt-Pack.md"
+    },
+
+    "AI-Business-Idea-Generator-Kit": {
+        name: "AI Business Idea Generator Kit",
+        file: "AI-Business-Idea-Generator-Kit.md"
+    },
+
+    "AI-Freelancer-Prompt-Kit": {
+        name: "AI Freelancer Prompt Kit",
+        file: "AI-Freelancer-Prompt-Kit.md"
+    },
+
+    "AI-Email-Marketing-Prompt-Pack": {
+        name: "AI Email Marketing Prompt Pack",
+        file: "AI-Email-Marketing-Prompt-Pack.md"
+    },
+
+    "AI-Copywriting-Prompt-Master-Kit": {
+        name: "AI Copywriting Prompt Master Kit",
+        file: "AI-Copywriting-Prompt-Master-Kit.md"
+    },
+
+    "AI-Website-Creation-Prompt-Kit": {
+        name: "AI Website Creation Prompt Kit",
+        file: "AI-Website-Creation-Prompt-Kit.md"
+    },
+
+    "AI-Graphic-Design-Prompt-Pack": {
+        name: "AI Graphic Design Prompt Pack",
+        file: "AI-Graphic-Design-Prompt-Pack.md"
+    },
+
+    "AI-Productivity-Prompt-Kit": {
+        name: "AI Productivity Prompt Kit",
+        file: "AI-Productivity-Prompt-Kit.md"
+    },
+
+    "AI-Study-Prompt-Pack": {
+        name: "AI Study Prompt Pack",
+        file: "AI-Study-Prompt-Pack.md"
+    },
+
+    "AI-Ecommerce-Prompt-Kit": {
+        name: "AI Ecommerce Prompt Kit",
+        file: "AI-Ecommerce-Prompt-Kit.md"
+    },
+
+    "AI-Small-Business-Prompt-Pack": {
+        name: "AI Small Business Prompt Pack",
+        file: "AI-Small-Business-Prompt-Pack.md"
+    },
+
+    "AI-Instagram-Growth-Prompt-Kit": {
+        name: "AI Instagram Growth Prompt Kit",
+        file: "AI-Instagram-Growth-Prompt-Kit.md"
+    },
+
+    "AI-ChatGPT-Master-Prompt-Pack": {
+        name: "AI ChatGPT Master Prompt Pack",
+        file: "AI-ChatGPT-Master-Prompt-Pack.md"
+    },
+
+    "AI-Digital-Product-Creator-Kit": {
+        name: "AI Digital Product Creator Kit",
+        file: "AI-Digital-Product-Creator-Kit.md"
+    },
+
+    "Ultimate-AI-Prompt-Bundle": {
+        name: "Ultimate AI Prompt Bundle",
+        file: "Ultimate-AI-Prompt-Bundle.md"
+    }
+
+};
+
+
+// =====================================
+// SHOW PRODUCT NAME
+// =====================================
+
+const product =
+    products[productId];
+
+
+document.getElementById(
+    "productName"
+).textContent =
+    product
+        ? product.name
+        : "Digital Product";
+
+
+// =====================================
+// DOWNLOAD BUTTON
+// =====================================
 
 const downloadButton =
     document.getElementById(
@@ -389,29 +502,133 @@ const downloadButton =
     );
 
 
-if (downloads[productId]) {
-
-    downloadButton.href =
-        downloads[productId];
-
-    downloadButton.setAttribute(
-        "download",
-        names[productId] + ".md"
+const downloadStatus =
+    document.getElementById(
+        "downloadStatus"
     );
 
-} else {
 
-    downloadButton.textContent =
-        "Product File Not Found";
+downloadButton.addEventListener(
+    "click",
+    async function () {
 
-    downloadButton.style.opacity =
-        "0.5";
 
-    downloadButton.style.pointerEvents =
-        "none";
+        if (!product) {
 
-}
+            downloadStatus.textContent =
+                "Product file not found.";
 
+            return;
+
+        }
+
+
+        downloadButton.disabled = true;
+
+        downloadButton.textContent =
+            "Preparing Download...";
+
+        downloadStatus.textContent =
+            "Please wait...";
+
+
+        // GitHub raw file URL
+
+        const folder =
+            product.name;
+
+
+        const rawUrl =
+            "https://raw.githubusercontent.com/" +
+            "forge-digital-gh/DIGITAL-PRODUCTS-2.0/" +
+            "main/" +
+            encodeURIComponent(folder).replace(
+                /%2F/g,
+                "%20"
+            ) +
+            "/" +
+            product.file;
+
+
+        try {
+
+
+            const response =
+                await fetch(rawUrl);
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "File not found"
+                );
+
+            }
+
+
+            const blob =
+                await response.blob();
+
+
+            const blobUrl =
+                URL.createObjectURL(blob);
+
+
+            const link =
+                document.createElement("a");
+
+
+            link.href =
+                blobUrl;
+
+
+            link.download =
+                product.file;
+
+
+            document.body.appendChild(
+                link
+            );
+
+
+            link.click();
+
+
+            link.remove();
+
+
+            URL.revokeObjectURL(
+                blobUrl
+            );
+
+
+            downloadStatus.textContent =
+                "Download started ✓";
+
+
+        } catch (error) {
+
+
+            console.error(error);
+
+
+            downloadStatus.textContent =
+                "Download failed. Please check the product file.";
+
+
+        }
+
+
+        downloadButton.disabled =
+            false;
+
+
+        downloadButton.textContent =
+            "Download Product →";
+
+
+    }
+);
 
 </script>
 
