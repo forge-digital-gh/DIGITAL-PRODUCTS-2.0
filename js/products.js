@@ -1,4 +1,4 @@
-```js
+```javascript
 const products = [
     {
         id: "AI-Prompts-Digital-Products-Kit",
@@ -32,6 +32,4 @@ const products = [
         image: "assets/covers/AI-Resume-Career-Prompt-Kit.jpg"
     }
 ];
-
-<script src="js/products.js"></script>
 ```
